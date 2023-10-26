@@ -10,9 +10,9 @@ export default function Home() {
     <div className="relative flex h-screen w-screen items-center justify-center overflow-hidden">
       <RealTime />
 
-      {/* <div className="z-10 h-full w-full">
+      <div className="z-10 h-full w-full">
         <Dnd />
-      </div> */}
+      </div>
     </div>
   );
 }

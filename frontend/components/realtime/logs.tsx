@@ -1,16 +1,32 @@
+import { X } from "lucide-react";
 import { useState } from "react";
 
-export default function Logs({ messages }: { messages: string[] }) {
+export default function Logs({
+  messages,
+  close,
+}: {
+  messages: string[];
+  close: () => void;
+}) {
   return (
-    <div className="flex h-96 w-[32rem] flex-col overflow-y-auto rounded-md border border-neutral-700 bg-neutral-900">
+    <div className="z-50 flex h-64 w-96 flex-col overflow-y-auto rounded-md border border-neutral-700 bg-neutral-900 font-mono text-xs">
+      <div className="sticky top-0 flex items-center self-end p-2">
+        <div className="mr-2 h-2 w-2 rounded-full bg-green-500" />
+        Connected
+        <button
+          onClick={close}
+          className="ml-3 mr-1 flex h-5 w-5 items-center justify-center rounded-md bg-red-600/10 transition-all hover:bg-red-600/25"
+        >
+          <X className="h-4 w-4 text-red-600" />
+        </button>
+      </div>
+
       {messages.length > 0 ? (
         messages.map((message, i) => {
           return <Message key={i}>{message}</Message>;
         })
       ) : (
-        <div className="select-none p-4 font-mono text-sm text-red-600">
-          No messages yet.
-        </div>
+        <div className="select-none p-2 text-red-600">No messages yet.</div>
       )}
     </div>
   );
@@ -18,7 +34,7 @@ export default function Logs({ messages }: { messages: string[] }) {
 
 function Message({ children }: { children?: React.ReactNode }) {
   return (
-    <div className="border-b border-neutral-700 p-4 font-mono text-sm">
+    <div className="border-b border-neutral-700 p-2">
       <span className="select-none text-neutral-600">{">> "}</span>
       {children}
     </div>
