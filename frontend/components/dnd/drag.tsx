@@ -20,7 +20,7 @@ export function Drag({
 
   return (
     <button
-      className="bg-white text-black absolute flex items-center justify-center rounded-md h-24 w-36"
+      className="absolute z-10 flex h-24 w-36 items-center justify-center rounded-md bg-white text-black"
       ref={setNodeRef}
       style={{ ...style, top: y, left: x }}
       {...listeners}
