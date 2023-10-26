@@ -13,10 +13,15 @@ sio.attach(app)
 #         return web.Response(text=f.read(), content_type='text/html')
 
 
-@sio.on('message')
-async def print_message(sid, message):
+@sio.on('trigger')
+async def trigger(sid, message):
     print("Socket ID: ", sid)
-    print(message)
+
+    # emit 20 messages with 50ms between each
+
+    for i in range(20):
+        await sio.emit('log', "log "+str(i))
+        await sio.sleep(0.05)
 
 # app.router.add_get('/', index)
 

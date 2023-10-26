@@ -20,7 +20,7 @@ export default function RealTime() {
   // separate effect to avoid unnecessary re-connections
   useEffect(() => {
     function handler(value: string) {
-      setMessages([...messages, value]);
+      setMessages([value, ...messages]);
     }
 
     socket.on("log", handler);
@@ -30,5 +30,19 @@ export default function RealTime() {
     };
   }, [messages]);
 
-  return <Logs messages={messages} />;
+  const trigger = () => {
+    socket.emit("trigger", Date.now());
+  };
+
+  return (
+    <div className="flex flex-col items-center">
+      <button
+        onClick={trigger}
+        className="mb-6 rounded-md bg-white px-3 py-2 text-sm font-medium text-black transition-all hover:bg-white/75"
+      >
+        Trigger Server Events
+      </button>
+      <Logs messages={messages} />
+    </div>
+  );
 }

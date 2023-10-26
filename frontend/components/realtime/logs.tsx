@@ -5,10 +5,10 @@ export default function Logs({ messages }: { messages: string[] }) {
     <div className="flex h-96 w-[32rem] flex-col overflow-y-auto rounded-md border border-neutral-700 bg-neutral-900">
       {messages.length > 0 ? (
         messages.map((message, i) => {
-          return <Message key={message + i}>{message}</Message>;
+          return <Message key={i}>{message}</Message>;
         })
       ) : (
-        <div className="select-none border-b border-neutral-700 p-4 font-mono text-sm text-neutral-600">
+        <div className="select-none p-4 font-mono text-sm text-red-600">
           No messages yet.
         </div>
       )}
