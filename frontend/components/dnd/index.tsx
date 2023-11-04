@@ -22,7 +22,7 @@ export default function Dnd({
 }) {
   return (
     <>
-      <button
+      {/* <button
         onClick={() => {
           setCoordinates(({ x, y }) => {
             return {
@@ -33,7 +33,7 @@ export default function Dnd({
         }}
       >
         test
-      </button>
+      </button> */}
       <DndContext
         modifiers={[restrictToWindowEdges]}
         onDragEnd={({ delta }) => {

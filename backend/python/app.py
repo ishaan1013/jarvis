@@ -16,9 +16,10 @@ sio.attach(app)
 async def trigger(sid, message):
     print("Socket ID: ", sid, " at ", str(message))
 
-    for i in range(50):
-        await sio.emit('shift', {"x": 3, "y": 5})
-        await sio.sleep(0.01)
+    for i in range(200):
+        # await sio.emit(' log', "message" + str(i))
+        await sio.emit('shift', {"x": 2, "y": 1})
+        await sio.sleep(0.001)
 
 # app.router.add_get('/', index)
 
