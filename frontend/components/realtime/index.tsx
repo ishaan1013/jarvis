@@ -73,13 +73,7 @@ export default function RealTime() {
 
   return (
     <>
-      <div className="absolute bottom-4 left-4 flex flex-col items-start">
-        {/* <button
-          onClick={trigger}
-          className="mb-6 rounded-md bg-white px-3 py-2 text-sm font-medium text-black transition-all hover:bg-white/75"
-        >
-          Trigger Server Events
-        </button> */}
+      {/* <div className="absolute bottom-4 left-4 flex flex-col items-start">
         {modal ? (
           <Logs
             isConnected={isConnected}
@@ -102,7 +96,7 @@ export default function RealTime() {
             <HardDriveDownload className="h-6 w-6 text-neutral-600" />
           </button>
         </div>
-      </div>
+      </div> */}
       <div className="z-10 h-full w-full">
         <Dnd x={x} y={y} setCoordinates={setCoordinates} />
       </div>

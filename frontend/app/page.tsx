@@ -1,3 +1,4 @@
+import Model from "@/components/3d";
 import dynamic from "next/dynamic";
 
 const RealTime = dynamic(() => import("@/components/realtime"), {
@@ -7,7 +8,8 @@ const RealTime = dynamic(() => import("@/components/realtime"), {
 export default function Home() {
   return (
     <div className="relative flex h-screen w-screen items-center justify-center overflow-hidden">
-      <RealTime />
+      {/* <RealTime /> */}
+      <Model />
     </div>
   );
 }
