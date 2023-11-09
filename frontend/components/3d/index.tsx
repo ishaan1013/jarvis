@@ -94,7 +94,7 @@ function Flower({ position }: { position: [number, number, number] }) {
 }
 
 export default function Model() {
-  // const texture = useLoader(LUTCubeLoader, "/lut.cube");
+  const texture = useLoader(LUTCubeLoader, "/lut.cube");
   return (
     <Canvas
       gl={{ antialias: false }}
@@ -146,7 +146,7 @@ export default function Model() {
       </Environment>
       <EffectComposer disableNormalPass>
         <Bloom mipmapBlur luminanceThreshold={1} intensity={2} />
-        {/* <LUT lut={texture} /> */}
+        <LUT lut={texture} />
         <BrightnessContrast brightness={0} contrast={0.1} />
         <HueSaturation hue={0} saturation={-0.25} />
         <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
