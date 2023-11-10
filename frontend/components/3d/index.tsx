@@ -8,6 +8,8 @@ import {
   OrbitControls,
   MeshTransmissionMaterial,
   useGLTF,
+  TransformControls,
+  useCursor,
 } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import {
@@ -20,26 +22,38 @@ import {
 } from "@react-three/postprocessing";
 import { LUTCubeLoader, ToneMappingMode } from "postprocessing";
 import { useRef, useState } from "react";
+import { create } from "zustand";
+import { useControls } from "leva";
 
-function BoxElement(props: ThreeElements["mesh"]) {
-  const meshRef = useRef<THREE.Mesh>(null!);
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
-  useFrame((state, delta) => (meshRef.current.rotation.x += delta));
-  return (
-    <mesh
-      {...props}
-      ref={meshRef}
-      scale={active ? 1.5 : 1}
-      onClick={(event) => setActive(!active)}
-      onPointerOver={(event) => setHover(true)}
-      onPointerOut={(event) => setHover(false)}
-    >
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
-    </mesh>
-  );
-}
+// function BoxElement(props: ThreeElements["mesh"]) {
+//   const meshRef = useRef<THREE.Mesh>(null!);
+//   const [hovered, setHover] = useState(false);
+//   const [active, setActive] = useState(false);
+//   useFrame((state, delta) => (meshRef.current.rotation.x += delta));
+//   return (
+//     <mesh
+//       {...props}
+//       ref={meshRef}
+//       scale={active ? 1.5 : 1}
+//       onClick={(event) => setActive(!active)}
+//       onPointerOver={(event) => setHover(true)}
+//       onPointerOut={(event) => setHover(false)}
+//     >
+//       <boxGeometry args={[1, 1, 1]} />
+//       <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
+//     </mesh>
+//   );
+// }
+
+type State = {
+  target: THREE.Object3D | null;
+  setTarget: (target: THREE.Object3D | null) => void;
+};
+
+const useStore = create<State>((set) => ({
+  target: null,
+  setTarget: (target) => set({ target }),
+}));
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -52,9 +66,23 @@ type GLTFResult = GLTF & {
 
 function Flower({ position }: { position: [number, number, number] }) {
   const { nodes, materials } = useGLTF("/flower-transformed.glb") as GLTFResult;
+  const setTarget = useStore((state) => state.setTarget);
+  const [hovered, setHovered] = useState(false);
+  useCursor(hovered);
+
+  // ref to group
+  const ref = useRef<THREE.Group>(null!);
 
   return (
-    <group position={position} dispose={null}>
+    <group
+      ref={ref}
+      onClick={(e) => setTarget(ref.current)}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+      scale={0.5}
+      position={position}
+      dispose={null}
+    >
       <mesh geometry={nodes.petals.geometry}>
         <MeshTransmissionMaterial
           backside
@@ -81,24 +109,30 @@ function Flower({ position }: { position: [number, number, number] }) {
           />
         </mesh>
       </mesh>
-      <mesh geometry={nodes.Sphere001.geometry}>
+      {/* <mesh geometry={nodes.Sphere001.geometry}>
         <meshStandardMaterial
           toneMapped={false}
           emissive="hotpink"
           color="red"
           emissiveIntensity={2}
         />
-      </mesh>
+      </mesh> */}
     </group>
   );
 }
 
 export default function Model() {
-  const texture = useLoader(LUTCubeLoader, "/lut.cube");
+  // const texture = useLoader(LUTCubeLoader, "/lut.cube");
+
+  const { target, setTarget } = useStore();
+  const { mode } = useControls({
+    mode: { value: "translate", options: ["translate", "rotate", "scale"] },
+  });
+
   return (
     <Canvas
       gl={{ antialias: false }}
-      camera={{ position: [0, 2.5, 5], fov: 35 }}
+      camera={{ position: [0, 0, 5], fov: 35 }}
       onCreated={(state) => {
         state.gl.toneMapping = THREE.NoToneMapping;
       }}
@@ -107,8 +141,20 @@ export default function Model() {
       <ambientLight intensity={0.5} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -10, -10]} />
-      <Flower position={[0, -0.25, 0]} />
-      <OrbitControls />
+      <Flower position={[0, 0, 0]} />
+      {target && (
+        <TransformControls
+          object={target}
+          mode={mode as "translate" | "rotate" | "scale"}
+        />
+      )}
+
+      <OrbitControls
+        enableRotate={false}
+        enableZoom={false}
+        // minPolarAngle={Math.PI / 2.1}
+        // maxPolarAngle={Math.PI / 2.1}
+      />
       <Environment
         files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/blue_photo_studio_1k.hdr"
         resolution={512}
@@ -146,7 +192,7 @@ export default function Model() {
       </Environment>
       <EffectComposer disableNormalPass>
         <Bloom mipmapBlur luminanceThreshold={1} intensity={2} />
-        <LUT lut={texture} />
+        {/* <LUT lut={texture} /> */}
         <BrightnessContrast brightness={0} contrast={0.1} />
         <HueSaturation hue={0} saturation={-0.25} />
         <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
