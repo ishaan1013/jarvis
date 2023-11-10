@@ -64,14 +64,32 @@ type GLTFResult = GLTF & {
   materials: {};
 };
 
-function Flower({ position }: { position: [number, number, number] }) {
+function Flower() {
   const { nodes, materials } = useGLTF("/flower-transformed.glb") as GLTFResult;
-  const setTarget = useStore((state) => state.setTarget);
+  const { target, setTarget } = useStore();
   const [hovered, setHovered] = useState(false);
   useCursor(hovered);
 
-  // ref to group
   const ref = useRef<THREE.Group>(null!);
+  const [position, setPosition] = useState<{
+    x: number;
+    y: number;
+    z: number;
+  }>({
+    x: 0,
+    y: 0,
+    z: 0,
+  });
+
+  useFrame(() => {
+    if (target) {
+      setPosition((state) => ({
+        x: state.x + 0.01,
+        y: state.y + 0.01,
+        z: state.z + 0.01,
+      }));
+    }
+  });
 
   return (
     <group
@@ -80,7 +98,7 @@ function Flower({ position }: { position: [number, number, number] }) {
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
       scale={0.5}
-      position={position}
+      position={[position.x, position.y, position.z]}
       dispose={null}
     >
       <mesh geometry={nodes.petals.geometry}>
@@ -141,7 +159,8 @@ export default function Model() {
       <ambientLight intensity={0.5} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -10, -10]} />
-      <Flower position={[0, 0, 0]} />
+      <Flower />
+      {/* <Flower position={[position.x, position.y, position.z]} /> */}
       {target && (
         <TransformControls
           object={target}
@@ -152,6 +171,8 @@ export default function Model() {
       <OrbitControls
         enableRotate={false}
         enableZoom={false}
+        // autoRotate={true}
+        // autoRotateSpeed={4}
         // minPolarAngle={Math.PI / 2.1}
         // maxPolarAngle={Math.PI / 2.1}
       />
