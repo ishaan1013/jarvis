@@ -81,9 +81,21 @@ function Flower() {
     z: 0,
   });
 
+  const [rotation, setRotation] = useState<{
+    x: number;
+    y: number;
+    z: number;
+  }>({
+    x: 0,
+    y: 0,
+    z: 0,
+  });
+
+  const [scale, setScale] = useState(0.5);
+
   useFrame(() => {
     if (target) {
-      setPosition((state) => ({
+      setRotation((state) => ({
         x: state.x + 0.01,
         y: state.y + 0.01,
         z: state.z + 0.01,
@@ -97,8 +109,9 @@ function Flower() {
       onClick={(e) => setTarget(ref.current)}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
-      scale={0.5}
+      scale={scale}
       position={[position.x, position.y, position.z]}
+      rotation={[rotation.x, rotation.y, rotation.z]}
       dispose={null}
     >
       <mesh geometry={nodes.petals.geometry}>
