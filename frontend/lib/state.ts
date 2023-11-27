@@ -18,7 +18,7 @@ type State = {
 export const useStore = create<State>((set) => ({
   target: null,
   setTarget: (target) => set({ target }),
-  menuOpen: false,
+  menuOpen: true,
   setMenuOpen: (menuOpen) => set({ menuOpen }),
   visible: {
     porsche: true,

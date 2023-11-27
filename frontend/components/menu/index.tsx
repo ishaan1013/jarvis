@@ -15,6 +15,8 @@ import HandPoint from "@/public/hands/point.png";
 import modelData from "@/lib/modelData";
 
 import { Separator } from "../ui/separator";
+import { Home } from "lucide-react";
+import Link from "next/link";
 
 // const menuItems = ["Models", "Controls", "Server Connection", "About"];
 
@@ -51,19 +53,26 @@ export default function Menu() {
         <button className=" absolute left-4 top-4 z-50">menu</button>
       </DialogTrigger>
       <DialogContent className="flex h-[600px] p-0">
-        <div className="flex w-52 select-none flex-col space-y-2 border-r border-border bg-muted-foreground/[0.03] p-4 py-6">
-          {menuItems.map((item, index) => (
-            <Button
-              key={index}
-              onClick={() => setActive(index)}
-              className={`w-full justify-start ${
-                active === index ? "bg-secondary" : "bg-transparent"
-              } px-3`}
-              variant="secondary"
-            >
-              {item.name}
+        <div className="flex w-52 select-none flex-col justify-between border-r border-border bg-muted-foreground/[0.03] p-4 py-6">
+          <div className="flex w-full flex-col space-y-2">
+            {menuItems.map((item, index) => (
+              <Button
+                key={index}
+                onClick={() => setActive(index)}
+                className={`w-full justify-start ${
+                  active === index ? "bg-secondary" : "bg-transparent"
+                } px-3`}
+                variant="secondary"
+              >
+                {item.name}
+              </Button>
+            ))}
+          </div>
+          <Link href="/">
+            <Button className={`w-full justify-start px-3`} variant="secondary">
+              <Home className="mr-2 h-4 w-4" /> Back to Home
             </Button>
-          ))}
+          </Link>
         </div>
         <div className="flex grow flex-col items-start justify-start py-6 pl-4 pr-8">
           <div className="mb-4 mt-1 text-2xl font-medium">

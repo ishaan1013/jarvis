@@ -1,5 +1,5 @@
 import Model from "@/components/3d/landing";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Link2 } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -18,9 +18,15 @@ export default function Home() {
           </div>
         </div>
         <div className="mt-24 max-w-xl text-xl text-muted-foreground">
-          An touch-free, interactive 3D hologram experience. Interact with a
-          Pepper's Ghost illusion using three-dimensional hand tracking/gestures
-          and voice commands.
+          An touch-free, interactive 3D hologram experience. Interact with a{" "}
+          <a
+            href="https://en.wikipedia.org/wiki/Pepper%27s_ghost"
+            target="_blank"
+            className="border-b border-muted-foreground font-medium"
+          >
+            Pepper's Ghost <Link2 className="inline h-4 w-4" />
+          </a>{" "}
+          illusion through three-dimensional hand gestures. and voice commands.
         </div>
         <Link href="/app">
           <button className="group mt-4 flex items-center border-b border-muted-foreground py-0.5 text-xl font-semibold duration-300 hover:border-muted-foreground hover:text-muted-foreground">
