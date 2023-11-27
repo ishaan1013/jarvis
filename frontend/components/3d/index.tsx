@@ -9,7 +9,6 @@ import {
   useGLTF,
   TransformControls,
 } from "@react-three/drei";
-import { GLTF } from "three-stdlib";
 import {
   EffectComposer,
   Bloom,
@@ -21,28 +20,8 @@ import {
 import { LUTCubeLoader, ToneMappingMode } from "postprocessing";
 import { useControls } from "leva";
 import { useStore } from "@/lib/state";
-import Flower from "./flower";
 import Porsche from "./porsche";
-
-// function BoxElement(props: ThreeElements["mesh"]) {
-//   const meshRef = useRef<THREE.Mesh>(null!);
-//   const [hovered, setHover] = useState(false);
-//   const [active, setActive] = useState(false);
-//   useFrame((state, delta) => (meshRef.current.rotation.x += delta));
-//   return (
-//     <mesh
-//       {...props}
-//       ref={meshRef}
-//       scale={active ? 1.5 : 1}
-//       onClick={(event) => setActive(!active)}
-//       onPointerOver={(event) => setHover(true)}
-//       onPointerOut={(event) => setHover(false)}
-//     >
-//       <boxGeometry args={[1, 1, 1]} />
-//       <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
-//     </mesh>
-//   );
-// }
+import IronMan from "./ironman";
 
 export default function Model() {
   // const texture = useLoader(LUTCubeLoader, "/lut.cube");
@@ -65,7 +44,8 @@ export default function Model() {
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       {/* <pointLight position={[-10, -10, -10]} /> */}
       {/* <Flower /> */}
-      <Porsche />
+      {/* <Porsche /> */}
+      <IronMan />
       {target && (
         <TransformControls
           object={target}
@@ -93,7 +73,7 @@ export default function Model() {
             scale={20}
             onUpdate={(self) => self.lookAt(0, 0, 0)}
           />
-          {/* <Lightformer
+          <Lightformer
             intensity={0.1}
             onUpdate={(self) => self.lookAt(0, 0, 0)}
             position={[-5, 1, -1]}
@@ -106,7 +86,7 @@ export default function Model() {
             position={[10, 1, 0]}
             rotation-y={-Math.PI / 2}
             scale={[50, 10, 1]}
-          /> */}
+          />
           <Lightformer
             color="white"
             intensity={1}
@@ -119,7 +99,7 @@ export default function Model() {
       <EffectComposer disableNormalPass>
         {/* <Bloom mipmapBlur luminanceThreshold={1} intensity={1} /> */}
         <BrightnessContrast brightness={0} contrast={0.1} />
-        <HueSaturation hue={0} saturation={0.3} />
+        <HueSaturation hue={0} saturation={0.1} />
         {/* <ToneMapping mode={ToneMappingMode.ACES_FILMIC} /> */}
       </EffectComposer>
     </Canvas>
