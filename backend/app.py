@@ -5,12 +5,19 @@ sio = socketio.AsyncServer(cors_allowed_origins='*')
 app = web.Application()
 sio.attach(app)
 
-# we can define aiohttp endpoints just as we normally would with no change
 
+async def menuHandler(request):
 
-# async def index(request):
-#     with open('index.html') as f:
-#         return web.Response(text=f.read(), content_type='text/html')
+    open_param = request.rel_url.query.get('open', 'false')
+
+    if open_param.lower() == 'true':
+        await sio.emit('openMenu')
+    elif open_param.lower() == 'false':
+        await sio.emit('closeMenu')
+
+    res = {"status": "success"}
+    return web.json_response(res)
+
 
 @sio.on('trigger')
 async def trigger(sid, message):
@@ -21,7 +28,7 @@ async def trigger(sid, message):
         await sio.emit('shift', {"x": 2, "y": 1})
         await sio.sleep(0.001)
 
-# app.router.add_get('/', index)
+app.router.add_get('/menu', menuHandler)
 
 if __name__ == '__main__':
     web.run_app(app)
