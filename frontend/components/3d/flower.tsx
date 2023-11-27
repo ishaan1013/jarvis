@@ -19,7 +19,9 @@ type GLTFResult = GLTF & {
 };
 
 export default function Flower() {
-  const { nodes, materials } = useGLTF("/flower-transformed.glb") as GLTFResult;
+  const { nodes, materials } = useGLTF(
+    "/3d/flower-transformed.glb",
+  ) as GLTFResult;
   const { target, setTarget } = useStore();
   const [hovered, setHovered] = useState(false);
   useCursor(hovered);
@@ -105,4 +107,4 @@ export default function Flower() {
     </group>
   );
 }
-useGLTF.preload("/flower-transformed.glb");
+useGLTF.preload("/3d/flower-transformed.glb");

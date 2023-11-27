@@ -176,7 +176,7 @@ type ContextType = Record<
 >;
 
 export default function Porsche() {
-  const { nodes, materials } = useGLTF("/porsche.glb") as GLTFResult;
+  const { nodes, materials } = useGLTF("/3d/porsche.glb") as GLTFResult;
   const { target, setTarget } = useStore();
   const [hovered, setHovered] = useState(false);
   useCursor(hovered);
@@ -509,4 +509,4 @@ export default function Porsche() {
   );
 }
 
-useGLTF.preload("/porsche.glb");
+useGLTF.preload("/3d/porsche.glb");

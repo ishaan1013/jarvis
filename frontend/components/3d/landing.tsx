@@ -65,7 +65,9 @@ type GLTFResult = GLTF & {
 };
 
 function Flower() {
-  const { nodes, materials } = useGLTF("/flower-transformed.glb") as GLTFResult;
+  const { nodes, materials } = useGLTF(
+    "/3d/flower-transformed.glb",
+  ) as GLTFResult;
 
   const ref = useRef<THREE.Group>(null!);
   const [position, setPosition] = useState<{
@@ -210,4 +212,4 @@ export default function Model() {
   );
 }
 
-useGLTF.preload("/flower-transformed.glb");
+useGLTF.preload("/3d/flower-transformed.glb");

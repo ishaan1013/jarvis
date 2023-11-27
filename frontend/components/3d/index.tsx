@@ -22,11 +22,12 @@ import { useControls } from "leva";
 import { useStore } from "@/lib/state";
 import Porsche from "./porsche";
 import IronMan from "./ironman";
+import Goose from "./goose";
 
 export default function Model() {
   // const texture = useLoader(LUTCubeLoader, "/lut.cube");
 
-  const { target, setTarget } = useStore();
+  const { target, setTarget, visible } = useStore();
   const { mode } = useControls({
     mode: { value: "translate", options: ["translate", "rotate", "scale"] },
   });
@@ -42,10 +43,12 @@ export default function Model() {
       <color attach="background" args={["#000000"]} />
       <ambientLight intensity={1} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-      {/* <pointLight position={[-10, -10, -10]} /> */}
-      {/* <Flower /> */}
-      {/* <Porsche /> */}
-      <IronMan />
+      <pointLight position={[-10, -10, -10]} />
+
+      {visible.porsche ? <Porsche /> : null}
+      {visible.ironman ? <IronMan /> : null}
+      {visible.goose ? <Goose /> : null}
+
       {target && (
         <TransformControls
           object={target}

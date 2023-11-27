@@ -1,8 +1,9 @@
 import { create } from "zustand";
 
 type Visible = {
-  cars: boolean;
+  porsche: boolean;
   ironman: boolean;
+  goose: boolean;
 };
 
 type State = {
@@ -20,8 +21,9 @@ export const useStore = create<State>((set) => ({
   menuOpen: false,
   setMenuOpen: (menuOpen) => set({ menuOpen }),
   visible: {
-    cars: true,
+    porsche: true,
     ironman: false,
+    goose: false,
   },
   setVisible: (visible) => set({ visible }),
 }));
