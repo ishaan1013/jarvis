@@ -21,7 +21,7 @@ type ObjectData = {
   visible: boolean;
 };
 
-type ModelName = "porsche" | "ironman" | "goose";
+export type ModelName = "porsche" | "ironman" | "goose";
 
 type Objects = {
   [key in ModelName]: ObjectData;
