@@ -89,6 +89,8 @@ type State = {
     rotation: { x: number; y: number; z: number },
   ) => void;
   setScale: (modelName: ModelName, scale: number) => void;
+  isConnected: boolean;
+  setIsConnected: (isConnected: boolean) => void;
 };
 
 export const useStore = create<State>((set) => ({
@@ -137,4 +139,6 @@ export const useStore = create<State>((set) => ({
         },
       },
     })),
+  isConnected: false,
+  setIsConnected: (isConnected) => set({ isConnected }),
 }));

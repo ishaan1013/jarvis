@@ -28,9 +28,9 @@ export default function Model() {
   // const texture = useLoader(LUTCubeLoader, "/lut.cube");
 
   const { target, setTarget, objects } = useStore();
-  const { mode } = useControls({
-    mode: { value: "translate", options: ["translate", "rotate", "scale"] },
-  });
+  // const { mode } = useControls({
+  //   mode: { value: "translate", options: ["translate", "rotate", "scale"] },
+  // });
 
   return (
     <Canvas
@@ -49,12 +49,12 @@ export default function Model() {
       {objects.ironman.visible ? <IronMan /> : null}
       {objects.goose.visible ? <Goose /> : null}
 
-      {target && (
+      {/* {target && (
         <TransformControls
           object={target}
           mode={mode as "translate" | "rotate" | "scale"}
         />
-      )}
+      )} */}
 
       <OrbitControls
         enableRotate={false}

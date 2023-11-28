@@ -7,10 +7,15 @@ import { HardDriveDownload, RadioTower, TerminalSquare } from "lucide-react";
 import Dnd from "../dnd";
 import { ModelName, useStore } from "@/lib/state";
 
+export const trigger = () => {
+  socket.emit("trigger", Date.now());
+};
+
 export default function RealTime() {
   const [modal, setModal] = useState(false);
   const [messages, setMessages] = useState<string[]>([]);
-  const [isConnected, setIsConnected] = useState(socket.connected);
+  // const [isConnected, setIsConnected] = useState(socket.connected);
+  const { isConnected, setIsConnected } = useStore();
 
   // const [{ x, y }, setCoordinates] = useState<{ x: number; y: number }>({
   //   x: 0,
@@ -45,9 +50,11 @@ export default function RealTime() {
 
     function onTranslate(data: { id: string; x: number; y: number }) {
       const modelName = data.id as ModelName;
+      const { x, y } = objects[modelName].position;
+      console.log("within onTranslate", objects.porsche.position);
       setPosition(modelName, {
-        x: objects[modelName].position.x + data.x,
-        y: objects[modelName].position.y + data.y,
+        x: x + data.x,
+        y: y + data.y,
         z: 0,
       });
     }
@@ -74,45 +81,46 @@ export default function RealTime() {
       socket.off("translate", onTranslate);
       socket.off("rotate", onRotate);
     };
-  }, [messages]);
-
-  const trigger = () => {
-    socket.emit("trigger", Date.now());
-  };
+  }, [objects]);
 
   const closeModal = () => {
     setModal(false);
   };
 
-  return (
-    <>
-      <div className="absolute bottom-4 left-4 z-50 flex flex-col items-start">
-        {modal ? (
-          <Logs
-            isConnected={isConnected}
-            close={closeModal}
-            messages={messages}
-          />
-        ) : null}
-        <div className="mt-4 flex space-x-4">
-          <button
-            onClick={() => setModal((prev) => !prev)}
-            className="z-50 rounded-md border border-neutral-700 bg-neutral-900 p-2 transition-all hover:bg-neutral-800"
-          >
-            <TerminalSquare className="h-6 w-6 text-neutral-600" />
-          </button>
-          <button
-            onClick={() => trigger()}
-            disabled={!isConnected}
-            className="z-50 rounded-md border border-neutral-700 bg-neutral-900 p-2 transition-all hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-neutral-900"
-          >
-            <HardDriveDownload className="h-6 w-6 text-neutral-600" />
-          </button>
-        </div>
-      </div>
-      {/* <div className="z-10 h-full w-full">
-        <Dnd x={x} y={y} setCoordinates={setCoordinates} />
-      </div> */}
-    </>
-  );
+  // const trigger = () => {
+  //   socket.emit("trigger", Date.now());
+  // };
+  return null;
+
+  // return (
+  //   <>
+  //     <div className="absolute bottom-4 left-4 z-50 flex flex-col items-start">
+  //       {modal ? (
+  //         <Logs
+  //           isConnected={isConnected}
+  //           close={closeModal}
+  //           messages={messages}
+  //         />
+  //       ) : null}
+  //       <div className="mt-4 flex space-x-4">
+  //         <button
+  //           onClick={() => setModal((prev) => !prev)}
+  //           className="z-50 rounded-md border border-neutral-700 bg-neutral-900 p-2 transition-all hover:bg-neutral-800"
+  //         >
+  //           <TerminalSquare className="h-6 w-6 text-neutral-600" />
+  //         </button>
+  //         <button
+  //           onClick={() => trigger()}
+  //           disabled={!isConnected}
+  //           className="z-50 rounded-md border border-neutral-700 bg-neutral-900 p-2 transition-all hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-neutral-900"
+  //         >
+  //           <HardDriveDownload className="h-6 w-6 text-neutral-600" />
+  //         </button>
+  //       </div>
+  //     </div>
+  //     {/* <div className="z-10 h-full w-full">
+  //       <Dnd x={x} y={y} setCoordinates={setCoordinates} />
+  //     </div> */}
+  //   </>
+  // );
 }
