@@ -95,44 +95,88 @@ function Models() {
 
   return (
     <>
-      {modelData.map((model) => (
-        <div
-          key={model.id}
-          className="mb-2 inline-flex h-24 w-full items-center justify-start overflow-hidden whitespace-nowrap rounded-md border border-border bg-muted-foreground/[0.03] text-sm"
-        >
-          <div className="aspect-square h-full bg-contain">
-            <Image
-              src={model.preview}
-              alt={model.name + " 3D Model"}
-              className="h-full w-full object-contain"
-            />
-          </div>
-          <div className="ml-4">
-            <div className="text-base font-medium">{model.id}.glb</div>
-            {objects[model.id].visible ? (
-              <Button
-                onClick={() => {
-                  setVisible(model.id, !objects);
-                }}
-                variant="link"
-                className="mt-1 h-auto p-0 font-normal text-red-500 underline hover:opacity-70"
-              >
-                Remove
-              </Button>
-            ) : (
-              <Button
-                onClick={() => {
-                  setVisible(model.id, !objects);
-                }}
-                variant="link"
-                className="mt-1 h-auto p-0 font-normal underline hover:opacity-70 "
-              >
-                Add
-              </Button>
-            )}
-          </div>
-        </div>
-      ))}
+      <div className="mb-4 flex w-full items-center">
+        <div className="text-muted-foreground">Visible</div>
+        <div className="ml-4 h-[1px] w-full bg-border" />
+      </div>
+      {modelData.map((model) => {
+        if (objects[model.id].visible) {
+          return (
+            <div
+              key={model.id}
+              className="mb-2 inline-flex h-24 w-full items-center justify-start overflow-hidden whitespace-nowrap rounded-md border border-border bg-muted-foreground/[0.03] text-sm"
+            >
+              <div className="aspect-square h-full bg-contain">
+                <Image
+                  src={model.preview}
+                  alt={model.name + " 3D Model"}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+              <div className="ml-4">
+                <div className="text-base font-medium">{model.id}.glb</div>
+                {objects[model.id].visible ? (
+                  <Button
+                    onClick={() => {
+                      setVisible(model.id, !objects);
+                    }}
+                    variant="link"
+                    className="mt-1 h-auto p-0 font-normal text-red-500 underline hover:opacity-70"
+                  >
+                    Remove
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => {
+                      setVisible(model.id, !objects);
+                    }}
+                    variant="link"
+                    className="mt-1 h-auto p-0 font-normal underline hover:opacity-70 "
+                  >
+                    Add
+                  </Button>
+                )}
+              </div>
+            </div>
+          );
+        }
+        return null;
+      })}
+      <div className="mb-4 mt-2 flex w-full items-center">
+        <div className="text-muted-foreground">Hidden</div>
+        <div className="ml-4 h-[1px] w-full bg-border" />
+      </div>
+      {modelData.map((model) => {
+        if (!objects[model.id].visible) {
+          return (
+            <div
+              key={model.id}
+              className="mb-2 inline-flex h-24 w-full items-center justify-start overflow-hidden whitespace-nowrap rounded-md border border-border bg-muted-foreground/[0.03] text-sm"
+            >
+              <div className="aspect-square h-full bg-contain">
+                <Image
+                  src={model.preview}
+                  alt={model.name + " 3D Model"}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+              <div className="ml-4">
+                <div className="text-base font-medium">{model.id}.glb</div>
+                <Button
+                  onClick={() => {
+                    setVisible(model.id, true);
+                  }}
+                  variant="link"
+                  className="mt-1 h-auto p-0 font-normal underline hover:opacity-70 "
+                >
+                  Add
+                </Button>
+              </div>
+            </div>
+          );
+        }
+        return null;
+      })}
     </>
   );
 }
