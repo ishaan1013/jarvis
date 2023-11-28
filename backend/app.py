@@ -23,10 +23,12 @@ async def menuHandler(request):
 async def trigger(sid, message):
     print("Socket ID: ", sid, " at ", str(message))
 
-    for i in range(200):
+    for i in range(800):
         # await sio.emit(' log', "message" + str(i))
-        await sio.emit('shift', {"x": 2, "y": 1})
-        await sio.sleep(0.001)
+        await sio.emit('translate', {"id": "goose", "x": 0.001, "y": 0.001})
+        await sio.emit('rotate', {"id": "goose", "x": 0.01, "y": 0.01, "z": 0.01})
+        await sio.emit('log', "id: goose")
+        await sio.sleep(0.01)
 
 app.router.add_get('/menu', menuHandler)
 

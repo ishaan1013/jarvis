@@ -10,6 +10,7 @@ type ObjectData = {
   position: {
     x: number;
     y: number;
+    z: number;
   };
   // need to remove one
   rotation: {
@@ -32,6 +33,7 @@ const initialObjects = {
     position: {
       x: 0,
       y: 0,
+      z: 0,
     },
     rotation: {
       x: 0.2,
@@ -45,6 +47,7 @@ const initialObjects = {
     position: {
       x: 0,
       y: -0.5,
+      z: 0,
     },
     rotation: {
       x: 0,
@@ -58,6 +61,7 @@ const initialObjects = {
     position: {
       x: 0,
       y: -0.1,
+      z: 0,
     },
     rotation: {
       x: 0,
@@ -78,7 +82,7 @@ type State = {
   setVisible: (modelName: ModelName, visible: boolean) => void;
   setPosition: (
     modelName: ModelName,
-    position: { x: number; y: number },
+    position: { x: number; y: number; z: number },
   ) => void;
   setRotation: (
     modelName: ModelName,
