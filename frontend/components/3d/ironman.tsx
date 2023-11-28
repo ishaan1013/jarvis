@@ -26,27 +26,12 @@ export default function IronMan() {
   useCursor(hovered);
 
   const ref = useRef<THREE.Group>(null!);
-  const [position, setPosition] = useState<{
-    x: number;
-    y: number;
-    z: number;
-  }>({
-    x: 0,
-    y: -0.5,
-    z: 0,
-  });
 
-  const [rotation, setRotation] = useState<{
-    x: number;
-    y: number;
-    z: number;
-  }>({
-    x: 0,
-    y: 0,
-    z: 0,
-  });
+  const { objects } = useStore();
 
-  const [scale, setScale] = useState(0.6);
+  const position = objects.ironman.position;
+  const rotation = objects.ironman.rotation;
+  const scale = objects.ironman.scale;
 
   // useFrame(() => {
   //   if (target) {

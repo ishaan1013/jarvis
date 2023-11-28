@@ -25,27 +25,12 @@ export default function Goose() {
   useCursor(hovered);
 
   const ref = useRef<THREE.Group>(null!);
-  const [position, setPosition] = useState<{
-    x: number;
-    y: number;
-    z: number;
-  }>({
-    x: 0,
-    y: -0.1,
-    z: 0,
-  });
 
-  const [rotation, setRotation] = useState<{
-    x: number;
-    y: number;
-    z: number;
-  }>({
-    x: 0,
-    y: 0,
-    z: 0,
-  });
+  const { objects } = useStore();
 
-  const [scale, setScale] = useState(2);
+  const position = objects.goose.position;
+  const rotation = objects.goose.rotation;
+  const scale = objects.goose.scale;
 
   // useFrame(() => {
   //   if (target) {

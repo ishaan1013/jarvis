@@ -10,6 +10,7 @@ type ObjectData = {
   position: {
     x: number;
     y: number;
+    z: number;
   };
   // need to remove one
   rotation: {
@@ -21,7 +22,7 @@ type ObjectData = {
   visible: boolean;
 };
 
-type ModelName = "porsche" | "ironman" | "goose";
+export type ModelName = "porsche" | "ironman" | "goose";
 
 type Objects = {
   [key in ModelName]: ObjectData;
@@ -32,6 +33,7 @@ const initialObjects = {
     position: {
       x: 0,
       y: 0,
+      z: 0,
     },
     rotation: {
       x: 0.2,
@@ -45,6 +47,7 @@ const initialObjects = {
     position: {
       x: 0,
       y: -0.5,
+      z: 0,
     },
     rotation: {
       x: 0,
@@ -58,6 +61,7 @@ const initialObjects = {
     position: {
       x: 0,
       y: -0.1,
+      z: 0,
     },
     rotation: {
       x: 0,
@@ -78,13 +82,15 @@ type State = {
   setVisible: (modelName: ModelName, visible: boolean) => void;
   setPosition: (
     modelName: ModelName,
-    position: { x: number; y: number },
+    position: { x: number; y: number; z: number },
   ) => void;
   setRotation: (
     modelName: ModelName,
     rotation: { x: number; y: number; z: number },
   ) => void;
   setScale: (modelName: ModelName, scale: number) => void;
+  isConnected: boolean;
+  setIsConnected: (isConnected: boolean) => void;
 };
 
 export const useStore = create<State>((set) => ({
@@ -133,4 +139,6 @@ export const useStore = create<State>((set) => ({
         },
       },
     })),
+  isConnected: false,
+  setIsConnected: (isConnected) => set({ isConnected }),
 }));

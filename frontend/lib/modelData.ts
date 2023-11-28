@@ -2,9 +2,10 @@ import PreviewPorsche from "@/public/3d/previews/porsche.png";
 import PreviewIronman from "@/public/3d/previews/ironman.png";
 import PreviewGoose from "@/public/3d/previews/goose.png";
 import { StaticImageData } from "next/image";
+import { ModelName } from "./state";
 
 type Model = {
-  id: "porsche" | "ironman" | "goose";
+  id: ModelName;
   name: string;
   model: string;
   preview: StaticImageData;

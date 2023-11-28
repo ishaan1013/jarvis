@@ -182,27 +182,12 @@ export default function Porsche() {
   useCursor(hovered);
 
   const ref = useRef<THREE.Group>(null!);
-  const [position, setPosition] = useState<{
-    x: number;
-    y: number;
-    z: number;
-  }>({
-    x: 0,
-    y: 0,
-    z: 0,
-  });
 
-  const [rotation, setRotation] = useState<{
-    x: number;
-    y: number;
-    z: number;
-  }>({
-    x: 0.2,
-    y: 4.5,
-    z: 0,
-  });
+  const { objects } = useStore();
 
-  const [scale, setScale] = useState(0.3);
+  const position = objects.porsche.position;
+  const rotation = objects.porsche.rotation;
+  const scale = objects.porsche.scale;
 
   // useFrame(() => {
   //   if (target) {

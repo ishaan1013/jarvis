@@ -15,88 +15,120 @@ import HandPoint from "@/public/hands/point.png";
 import modelData from "@/lib/modelData";
 
 import { Separator } from "../ui/separator";
-import { Home } from "lucide-react";
+import {
+  BadgeHelp,
+  Box,
+  Home,
+  SlidersHorizontal,
+  Menu as MenuIcon,
+  CloudLightning,
+  Zap,
+} from "lucide-react";
 import Link from "next/link";
-
-// const menuItems = ["Models", "Controls", "Server Connection", "About"];
+import { trigger } from "../realtime";
 
 const menuItems = [
   {
     name: "Models",
-    icon: "📦",
-    description: "Manage your models",
+    icon: <Box className="mr-2 h-4 w-4" />,
+    lgIcon: <Box className="mr-2 h-6 w-6" />,
   },
   {
     name: "Controls",
-    icon: "🎛",
-    description: "Manage your controls",
-  },
-  {
-    name: "Server Connection",
-    icon: "🌐",
-    description: "Manage your server connections",
+    icon: <SlidersHorizontal className="mr-2 h-4 w-4" />,
+    lgIcon: <SlidersHorizontal className="mr-2 h-6 w-6" />,
   },
   {
     name: "About",
-    icon: "👋",
-    description: "About this app",
+    icon: <BadgeHelp className="mr-2 h-4 w-4" />,
+    lgIcon: <BadgeHelp className="mr-2 h-6 w-6" />,
   },
 ];
 
 export default function Menu() {
-  const { menuOpen, setMenuOpen } = useStore();
+  const { menuOpen, setMenuOpen, isConnected } = useStore();
   const [active, setActive] = useState(0);
 
   return (
-    <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
-      <DialogTrigger>
-        <button className=" absolute left-4 top-4 z-50">menu</button>
-      </DialogTrigger>
-      <DialogContent className="flex h-[600px] p-0">
-        <div className="flex w-52 select-none flex-col justify-between border-r border-border bg-muted-foreground/[0.03] p-4 py-6">
-          <div className="flex w-full flex-col space-y-2">
-            {menuItems.map((item, index) => (
-              <Button
-                key={index}
-                onClick={() => setActive(index)}
-                className={`w-full justify-start ${
-                  active === index ? "bg-secondary" : "bg-transparent"
-                } px-3`}
-                variant="secondary"
-              >
-                {item.name}
-              </Button>
-            ))}
+    <>
+      <button
+        onClick={() => trigger()}
+        className="absolute left-16 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-md border border-muted-foreground/50 bg-secondary"
+      >
+        <Zap className="h-5 w-5" />
+      </button>
+      <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
+        <DialogTrigger>
+          <button className="absolute left-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-md border border-muted-foreground/50 bg-secondary">
+            <MenuIcon className="xw-6 h-6" />
+          </button>
+        </DialogTrigger>
+        <DialogContent className="flex h-[600px] p-0">
+          <div className="flex w-52 select-none flex-col justify-between border-r border-border bg-muted-foreground/[0.03] p-4 py-6">
+            <div className="flex w-full flex-col space-y-2">
+              {menuItems.map((item, index) => (
+                <Button
+                  key={index}
+                  onClick={() => setActive(index)}
+                  className={`w-full justify-start ${
+                    active === index ? "bg-secondary" : "bg-transparent"
+                  } px-3`}
+                  variant="secondary"
+                >
+                  {item.icon} {item.name}
+                </Button>
+              ))}
+            </div>
+            <div className="flex w-full flex-col items-start space-y-2">
+              {isConnected ? (
+                <div className="flex items-center rounded-full bg-green-500/20 px-3 py-1 text-xs font-medium text-green-300">
+                  <div className="mr-2 h-2 w-2 rounded-full bg-green-500" />
+                  Server Connected
+                </div>
+              ) : (
+                <div className="flex items-center rounded-full bg-red-500/20 px-3 py-1 text-xs font-medium text-red-300">
+                  <div className="mr-2 h-2 w-2 rounded-full bg-red-500" />
+                  Server Inactive
+                </div>
+              )}
+              <Link href="/" className="w-full">
+                <Button
+                  className={`w-full justify-start px-3`}
+                  variant="secondary"
+                >
+                  <Home className="mr-2 h-4 w-4" /> Back to Home
+                </Button>
+              </Link>
+            </div>
           </div>
-          <Link href="/">
-            <Button className={`w-full justify-start px-3`} variant="secondary">
-              <Home className="mr-2 h-4 w-4" /> Back to Home
-            </Button>
-          </Link>
-        </div>
-        <div className="flex grow flex-col items-start justify-start py-6 pl-4 pr-8">
-          <div className="mb-4 mt-1 text-2xl font-medium">
-            {menuItems[active].icon} {menuItems[active].name}
-          </div>
+          <div className="flex grow flex-col items-start justify-start py-6 pl-4 pr-8">
+            <div className="mb-4 mt-1 flex items-center text-2xl font-medium">
+              {menuItems[active].lgIcon} {menuItems[active].name}
+            </div>
 
-          {active === 0 ? (
-            <Models />
-          ) : active === 1 ? (
-            <Controls />
-          ) : active === 2 ? null : active === 3 ? null : null}
-        </div>
-      </DialogContent>
-    </Dialog>
+            {active === 0 ? (
+              <Models />
+            ) : active === 1 ? (
+              <Controls />
+            ) : active === 2 ? null : null}
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
 function Models() {
-  const { visible, setVisible } = useStore();
+  const { objects, setVisible } = useStore();
 
   return (
     <>
+      <div className="mb-4 flex w-full items-center">
+        <div className="text-muted-foreground">Visible</div>
+        <div className="ml-4 h-[1px] w-full bg-border" />
+      </div>
       {modelData.map((model) => {
-        if (visible[model.id]) {
+        if (objects[model.id].visible) {
           return (
             <div
               key={model.id}
@@ -111,27 +143,39 @@ function Models() {
               </div>
               <div className="ml-4">
                 <div className="text-base font-medium">{model.id}.glb</div>
-                <Button
-                  onClick={() => {
-                    const newVisible = { ...visible };
-                    newVisible[model.id] = false;
-                    setVisible(newVisible);
-                  }}
-                  variant="link"
-                  className="mt-1 h-auto p-0 font-normal text-red-500 underline hover:opacity-70"
-                >
-                  Remove
-                </Button>
+                {objects[model.id].visible ? (
+                  <Button
+                    onClick={() => {
+                      setVisible(model.id, !objects);
+                    }}
+                    variant="link"
+                    className="mt-1 h-auto p-0 font-normal text-red-500 underline hover:opacity-70"
+                  >
+                    Remove
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => {
+                      setVisible(model.id, !objects);
+                    }}
+                    variant="link"
+                    className="mt-1 h-auto p-0 font-normal underline hover:opacity-70 "
+                  >
+                    Add
+                  </Button>
+                )}
               </div>
             </div>
           );
         }
         return null;
       })}
-      <Separator className="mb-4 mt-2" />
-
+      <div className="mb-4 mt-2 flex w-full items-center">
+        <div className="text-muted-foreground">Hidden</div>
+        <div className="ml-4 h-[1px] w-full bg-border" />
+      </div>
       {modelData.map((model) => {
-        if (!visible[model.id]) {
+        if (!objects[model.id].visible) {
           return (
             <div
               key={model.id}
@@ -148,9 +192,7 @@ function Models() {
                 <div className="text-base font-medium">{model.id}.glb</div>
                 <Button
                   onClick={() => {
-                    const newVisible = { ...visible };
-                    newVisible[model.id] = true;
-                    setVisible(newVisible);
+                    setVisible(model.id, true);
                   }}
                   variant="link"
                   className="mt-1 h-auto p-0 font-normal underline hover:opacity-70 "
