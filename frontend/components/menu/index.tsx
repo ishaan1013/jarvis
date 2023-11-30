@@ -23,8 +23,10 @@ import {
   Menu as MenuIcon,
   CloudLightning,
   Zap,
+  Speech,
   Mic,
 } from "lucide-react";
+
 import Link from "next/link";
 import { trigger } from "../realtime";
 
@@ -35,9 +37,14 @@ const menuItems = [
     lgIcon: <Box className="mr-2 h-6 w-6" />,
   },
   {
-    name: "Controls",
+    name: "Gesture Controls",
     icon: <SlidersHorizontal className="mr-2 h-4 w-4" />,
     lgIcon: <SlidersHorizontal className="mr-2 h-6 w-6" />,
+  },
+  {
+    name: "Voice Commands",
+    icon: <Speech className="mr-2 h-4 w-4" />,
+    lgIcon: <Speech className="mr-2 h-6 w-6" />,
   },
   {
     name: "About",
@@ -120,7 +127,9 @@ export default function Menu() {
               <Models />
             ) : active === 1 ? (
               <Controls />
-            ) : active === 2 ? null : null}
+            ) : active === 2 ? (
+              <VoiceCommands />
+            ) : active === 3 ? null : null}
           </div>
         </DialogContent>
       </Dialog>
@@ -299,6 +308,45 @@ function Controls() {
           </div>
           <div className="text-muted-foreground">
             Point to preview cursor, "press" forward to click.
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function VoiceCommands() {
+  return (
+    <>
+      <div className="mb-2 inline-flex h-20 w-full items-center justify-start overflow-hidden whitespace-nowrap rounded-md border border-border bg-muted-foreground/[0.03] text-sm">
+        <div className="ml-4">
+          <div className="text-base font-medium">"Hey Jarvis" or "Jarvis"</div>
+          <div className="text-muted-foreground">
+            Active Jarvis to initiate voice commands.
+          </div>
+        </div>
+      </div>
+      <div className="mb-2 inline-flex h-20 w-full items-center justify-start overflow-hidden whitespace-nowrap rounded-md border border-border bg-muted-foreground/[0.03] text-sm">
+        <div className="ml-4">
+          <div className="text-base font-medium">"Add/Remove [model]"</div>
+          <div className="text-muted-foreground">
+            Add or remove the specified model from the board.
+          </div>
+        </div>
+      </div>
+      <div className="mb-2 inline-flex h-20 w-full items-center justify-start overflow-hidden whitespace-nowrap rounded-md border border-border bg-muted-foreground/[0.03] text-sm">
+        <div className="ml-4">
+          <div className="text-base font-medium">"Clear all"</div>
+          <div className="text-muted-foreground">
+            Remove all active models from the board.
+          </div>
+        </div>
+      </div>
+      <div className="mb-2 inline-flex h-20 w-full items-center justify-start overflow-hidden whitespace-nowrap rounded-md border border-border bg-muted-foreground/[0.03] text-sm">
+        <div className="ml-4">
+          <div className="text-base font-medium">"Open/Close Menu"</div>
+          <div className="text-muted-foreground">
+            Open or close the main menu.
           </div>
         </div>
       </div>
