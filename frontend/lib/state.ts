@@ -91,6 +91,8 @@ type State = {
   setScale: (modelName: ModelName, scale: number) => void;
   isConnected: boolean;
   setIsConnected: (isConnected: boolean) => void;
+  jarvis: boolean;
+  setJarvis: (jarvis: boolean) => void;
 };
 
 export const useStore = create<State>((set) => ({
@@ -141,4 +143,6 @@ export const useStore = create<State>((set) => ({
     })),
   isConnected: false,
   setIsConnected: (isConnected) => set({ isConnected }),
+  jarvis: false,
+  setJarvis: (jarvis) => set({ jarvis }),
 }));

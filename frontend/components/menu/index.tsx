@@ -23,6 +23,7 @@ import {
   Menu as MenuIcon,
   CloudLightning,
   Zap,
+  Mic,
 } from "lucide-react";
 import Link from "next/link";
 import { trigger } from "../realtime";
@@ -46,7 +47,7 @@ const menuItems = [
 ];
 
 export default function Menu() {
-  const { menuOpen, setMenuOpen, isConnected } = useStore();
+  const { menuOpen, setMenuOpen, isConnected, jarvis } = useStore();
   const [active, setActive] = useState(0);
 
   return (
@@ -78,6 +79,15 @@ export default function Menu() {
                   {item.icon} {item.name}
                 </Button>
               ))}
+              {
+                <div
+                  className={`flex duration-200 ${
+                    jarvis ? "visible opacity-100" : "invisible opacity-0"
+                  } h-10 w-full items-center justify-start px-3 text-muted-foreground`}
+                >
+                  <Mic className="mr-2 h-4 w-4" /> Jarvis listening...
+                </div>
+              }
             </div>
             <div className="flex w-full flex-col items-start space-y-2">
               {isConnected ? (
