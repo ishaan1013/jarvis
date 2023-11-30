@@ -62,6 +62,12 @@ export default function VoiceControl() {
       },
     },
     {
+      command: "Remove all",
+      callback: () => {
+        //Need to complete this function
+      },
+    },
+    {
       command: "Print",
       callback: () => {
         if (jarvis) {
