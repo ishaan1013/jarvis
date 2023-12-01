@@ -4,6 +4,7 @@ const models = {
   "Iron Man": "ironman",
   car: "porsche",
   goose: "goose",
+  "black hole": "blackhole",
 };
 
 const voiceToModel = (voice: string): ModelName | null => {

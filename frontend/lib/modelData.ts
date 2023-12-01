@@ -25,6 +25,12 @@ const modelData: Model[] = [
     preview: PreviewIronman,
   },
   {
+    id: "blackhole",
+    name: "Black Hole",
+    model: "/3d/blackhole.glb",
+    preview: PreviewIronman,
+  },
+  {
     id: "goose",
     name: "Goose",
     model: "/3d/goose.glb",
