@@ -13,7 +13,7 @@ const Menu = dynamic(() => import("@/components/menu"), {
 
 export default function Home() {
   return (
-    <div className="relative flex h-screen w-screen items-center justify-center overflow-hidden">
+    <div className="relative z-0 flex h-screen w-screen items-center justify-center overflow-hidden">
       <RealTime />
       <VoiceControl />
 

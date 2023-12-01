@@ -3,7 +3,7 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useStore } from "@/lib/state";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import HandNone from "@/public/hands/none.png";
@@ -58,6 +58,42 @@ export default function Menu() {
     useStore();
   const [active, setActive] = useState(0);
 
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    const updateMousePosition = (ev: MouseEvent) => {
+      setMousePosition({ x: ev.clientX, y: ev.clientY });
+    };
+    window.addEventListener("mousemove", updateMousePosition);
+    return () => {
+      window.removeEventListener("mousemove", updateMousePosition);
+    };
+  }, []);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     console.log("clicking");
+  //     const el = document.elementsFromPoint(
+  //       mousePosition.x,
+  //       mousePosition.y,
+  //     ) as HTMLElement[] | null[];
+  //     if (el) {
+  //       console.log("el: ", el);
+  //       // el.click();
+  //       el.forEach((e) => {
+  //         // if the element is a button
+  //         if (
+  //           e?.tagName === "BUTTON" ||
+  //           e?.tagName === "A" ||
+  //           e?.classList.contains("gesture-clickable")
+  //         ) {
+  //           e.click();
+  //         }
+  //       });
+  //     } else console.log("no el");
+  //   }, 5000);
+  //   return () => clearInterval(interval);
+  // }, [mousePosition]);
+
   return (
     <>
       <button
@@ -68,11 +104,12 @@ export default function Menu() {
         <Zap className="h-5 w-5" />
       </button>
       <div className="absolute left-32 top-4 z-50 flex h-10 items-center text-muted-foreground">
-        Gesture: None
+        {mousePosition.x}, {mousePosition.y}
+        {/* 850, 400 */}
       </div>
       <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
         <DialogTrigger>
-          <button className="absolute left-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-md border border-muted-foreground/50 bg-secondary">
+          <button className="gesture-clickable absolute left-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-md border border-muted-foreground/50 bg-secondary">
             <MenuIcon className="xw-6 h-6" />
           </button>
         </DialogTrigger>
