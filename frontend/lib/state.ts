@@ -22,7 +22,12 @@ type ObjectData = {
   visible: boolean;
 };
 
-export type ModelName = "porsche" | "ironman" | "blackhole" | "goose";
+export type ModelName =
+  | "porsche"
+  | "ironman"
+  | "blackhole"
+  | "goose"
+  | "minutes";
 
 type Objects = {
   [key in ModelName]: ObjectData;
@@ -46,7 +51,7 @@ const initialObjects = {
   ironman: {
     position: {
       x: 0,
-      y: -0.5,
+      y: -0.75,
       z: 0,
     },
     rotation: {
@@ -54,22 +59,22 @@ const initialObjects = {
       y: 0,
       z: 0,
     },
-    scale: 0.6,
-    visible: false,
+    scale: 0.7,
+    visible: true,
   },
   blackhole: {
     position: {
-      x: 0.5,
+      x: 0.2,
       y: -0.2,
-      z: -0.5,
+      z: -0.4,
     },
     rotation: {
       x: 0.1,
       y: 0,
       z: 0.2,
     },
-    scale: 1.25,
-    visible: true,
+    scale: 1,
+    visible: false,
   },
   goose: {
     position: {
@@ -83,6 +88,20 @@ const initialObjects = {
       z: 0,
     },
     scale: 2,
+    visible: false,
+  },
+  minutes: {
+    position: {
+      x: 0,
+      y: -0.5,
+      z: 0,
+    },
+    rotation: {
+      x: 0,
+      y: 0.5,
+      z: 0,
+    },
+    scale: 2.5,
     visible: false,
   },
 };

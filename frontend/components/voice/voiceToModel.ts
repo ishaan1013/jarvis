@@ -5,6 +5,7 @@ const models = {
   car: "porsche",
   goose: "goose",
   "black hole": "blackhole",
+  "miss minutes": "minutes",
 };
 
 const voiceToModel = (voice: string): ModelName | null => {

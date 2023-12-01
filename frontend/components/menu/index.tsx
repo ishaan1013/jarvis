@@ -71,7 +71,7 @@ export default function Menu() {
             <MenuIcon className="xw-6 h-6" />
           </button>
         </DialogTrigger>
-        <DialogContent className="flex h-[600px] p-0">
+        <DialogContent className="flex h-[650px] p-0">
           <div className="flex w-52 select-none flex-col justify-between border-r border-border bg-muted-foreground/[0.03] p-4 py-6">
             <div className="flex w-full flex-col space-y-2">
               {menuItems.map((item, index) => (
@@ -141,7 +141,7 @@ function Models() {
   const { objects, setVisible } = useStore();
 
   return (
-    <>
+    <div className="h-full w-full overflow-y-auto">
       <div className="mb-4 flex w-full items-center">
         <div className="text-muted-foreground">Visible</div>
         <div className="ml-4 h-[1px] w-full bg-border" />
@@ -224,7 +224,7 @@ function Models() {
         }
         return null;
       })}
-    </>
+    </div>
   );
 }
 

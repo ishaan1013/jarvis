@@ -1,6 +1,8 @@
 import PreviewPorsche from "@/public/3d/previews/porsche.png";
 import PreviewIronman from "@/public/3d/previews/ironman.png";
+import PreviewBlackhole from "@/public/3d/previews/blackhole.png";
 import PreviewGoose from "@/public/3d/previews/goose.png";
+import PreviewMinutes from "@/public/3d/previews/minutes.png";
 import { StaticImageData } from "next/image";
 import { ModelName } from "./state";
 
@@ -28,13 +30,19 @@ const modelData: Model[] = [
     id: "blackhole",
     name: "Black Hole",
     model: "/3d/blackhole.glb",
-    preview: PreviewIronman,
+    preview: PreviewBlackhole,
   },
   {
     id: "goose",
     name: "Goose",
     model: "/3d/goose.glb",
     preview: PreviewGoose,
+  },
+  {
+    id: "minutes",
+    name: "Minutes",
+    model: "/3d/minutes.glb",
+    preview: PreviewMinutes,
   },
 ];
 

@@ -24,6 +24,7 @@ import Porsche from "./porsche";
 import IronMan from "./ironman";
 import Goose from "./goose";
 import BlackHole from "./blackhole";
+import Minutes from "./minutes";
 
 export default function Model() {
   // const texture = useLoader(LUTCubeLoader, "/lut.cube");
@@ -50,6 +51,7 @@ export default function Model() {
       {objects.ironman.visible ? <IronMan /> : null}
       {objects.goose.visible ? <Goose /> : null}
       {objects.blackhole.visible ? <BlackHole /> : null}
+      {objects.minutes.visible ? <Minutes /> : null}
 
       {/* {target && (
         <TransformControls
