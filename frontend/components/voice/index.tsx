@@ -10,7 +10,8 @@ import { useStore } from "@/lib/state";
 import voiceToModel from "./voiceToModel";
 
 export default function VoiceControl() {
-  const { setVisible, menuOpen, setMenuOpen, jarvis, setJarvis } = useStore();
+  const { setVisible, menuOpen, setMenuOpen, jarvis, setJarvis, clearAll } =
+    useStore();
 
   const commands = [
     {
@@ -62,9 +63,10 @@ export default function VoiceControl() {
       },
     },
     {
-      command: "Remove all",
+      command: "Clear all",
       callback: () => {
-        //Need to complete this function
+        console.log("clearing all");
+        clearAll();
       },
     },
     {

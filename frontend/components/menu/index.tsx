@@ -54,17 +54,22 @@ const menuItems = [
 ];
 
 export default function Menu() {
-  const { menuOpen, setMenuOpen, isConnected, jarvis } = useStore();
+  const { menuOpen, setMenuOpen, isConnected, jarvis, clearAll, gesture } =
+    useStore();
   const [active, setActive] = useState(0);
 
   return (
     <>
       <button
-        onClick={() => trigger()}
+        // onClick={() => trigger()}
+        onClick={() => clearAll()}
         className="absolute left-16 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-md border border-muted-foreground/50 bg-secondary"
       >
         <Zap className="h-5 w-5" />
       </button>
+      <div className="absolute left-32 top-4 z-50 flex h-10 items-center text-muted-foreground">
+        Gesture: None
+      </div>
       <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
         <DialogTrigger>
           <button className="absolute left-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-md border border-muted-foreground/50 bg-secondary">
@@ -320,7 +325,7 @@ function VoiceCommands() {
     <>
       <div className="mb-2 inline-flex h-20 w-full items-center justify-start overflow-hidden whitespace-nowrap rounded-md border border-border bg-muted-foreground/[0.03] text-sm">
         <div className="ml-4">
-          <div className="text-base font-medium">"Hey Jarvis" or "Jarvis"</div>
+          <div className="text-base font-medium">"(Hey) Jarvis"</div>
           <div className="text-muted-foreground">
             Active Jarvis to initiate voice commands.
           </div>
@@ -328,7 +333,9 @@ function VoiceCommands() {
       </div>
       <div className="mb-2 inline-flex h-20 w-full items-center justify-start overflow-hidden whitespace-nowrap rounded-md border border-border bg-muted-foreground/[0.03] text-sm">
         <div className="ml-4">
-          <div className="text-base font-medium">"Add/Remove [model]"</div>
+          <div className="text-base font-medium">
+            "Add/Remove {"{"}model{"}"}"
+          </div>
           <div className="text-muted-foreground">
             Add or remove the specified model from the board.
           </div>

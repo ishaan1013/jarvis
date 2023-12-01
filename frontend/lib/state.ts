@@ -33,6 +33,8 @@ type Objects = {
   [key in ModelName]: ObjectData;
 };
 
+export type Gestures = "drag" | "rotate" | "scale" | "point";
+
 const initialObjects = {
   porsche: {
     position: {
@@ -101,7 +103,7 @@ const initialObjects = {
       y: 0.5,
       z: 0,
     },
-    scale: 2.5,
+    scale: 2,
     visible: false,
   },
 };
@@ -113,6 +115,7 @@ type State = {
   setMenuOpen: (menuOpen: boolean) => void;
   objects: Objects;
   setVisible: (modelName: ModelName, visible: boolean) => void;
+  clearAll: () => void;
   setPosition: (
     modelName: ModelName,
     position: { x: number; y: number; z: number },
@@ -126,6 +129,8 @@ type State = {
   setIsConnected: (isConnected: boolean) => void;
   jarvis: boolean;
   setJarvis: (jarvis: boolean) => void;
+  gesture: Gestures | null;
+  setGesture: (gesture: Gestures | null) => void;
 };
 
 export const useStore = create<State>((set) => ({
@@ -143,6 +148,19 @@ export const useStore = create<State>((set) => ({
           visible,
         },
       },
+    })),
+  clearAll: () =>
+    set((state) => ({
+      objects: Object.keys(state.objects).reduce(
+        (acc, modelName) => ({
+          ...acc,
+          [modelName]: {
+            ...state.objects[modelName as ModelName],
+            visible: false,
+          },
+        }),
+        {} as Objects,
+      ),
     })),
   setPosition: (modelName, position) =>
     set((state) => ({
@@ -178,4 +196,6 @@ export const useStore = create<State>((set) => ({
   setIsConnected: (isConnected) => set({ isConnected }),
   jarvis: false,
   setJarvis: (jarvis) => set({ jarvis }),
+  gesture: null,
+  setGesture: (gesture) => set({ gesture }),
 }));
