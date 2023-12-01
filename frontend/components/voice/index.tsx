@@ -18,7 +18,7 @@ export default function VoiceControl() {
       callback: () => setJarvis(true),
     },
     {
-      command: "Open Menu",
+      command: "Open (The) Menu",
       callback: () => {
         if (jarvis) {
           setMenuOpen(true);
@@ -27,7 +27,7 @@ export default function VoiceControl() {
       },
     },
     {
-      command: "Close Menu",
+      command: "Close (The) Menu",
       callback: () => {
         if (jarvis) {
           setMenuOpen(false);
