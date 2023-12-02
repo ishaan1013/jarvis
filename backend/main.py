@@ -21,12 +21,6 @@ def calculate_distance(x1, y1, x2, y2):
     return distance
 
 
-# Data points for a polynomial regression
-x = [300, 245, 200, 170, 145, 130, 112, 103, 93, 87, 80, 75, 70, 67, 62, 59, 57]
-y = [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]
-coff = np.polyfit(x, y, 2)
-
-
 def print_result(result: GestureRecognizerResult, output_image: mp.Image, timestamp_ms: int):
     print('gesture recognition result: {} at {}'.format(
         result.gestures[0] if len(result.gestures) > 0 else [], timestamp_ms))
@@ -71,8 +65,15 @@ with GestureRecognizer.create_from_options(options) as recognizer:
                 for ids, landmrk in enumerate(hand_landmarks.landmark):
                     cx, cy = landmrk.x * frame_width, landmrk.y*frame_height
 
-                # print(hand_landmarks.landmark[5].x * 100,
-                #       hand_landmarks.landmark[5].y * 100)
+                x0 = hand_landmarks.landmark[0].x
+                y0 = hand_landmarks.landmark[0].y
+                x5 = hand_landmarks.landmark[5].x
+                y5 = hand_landmarks.landmark[5].y
+
+                d = calculate_distance(x0, y0, x5, y5)
+
+                cv2.putText(frame, str(d*100), (int(x0 * frame_width), int(y0 * frame_height)),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
                 mp_drawing.draw_landmarks(
                     frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
