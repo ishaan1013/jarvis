@@ -35,6 +35,7 @@ export default function Model() {
     mode: { value: "translate", options: ["translate", "rotate", "scale"] },
   });
 
+            clientY: 440,
   return (
     <Canvas
       gl={{ antialias: false }}

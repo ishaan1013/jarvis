@@ -1,10 +1,13 @@
 import cv2
+from cv2.typing import MatLike
 import mediapipe as mp
 import numpy as np
 import tensorflow as tf
 
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+
+import pickle
 
 import time
 import math
@@ -21,13 +24,27 @@ def calculate_distance(x1, y1, x2, y2):
     return distance
 
 
+cameraMatrix, dist = pickle.load(open("utils/calibration.pkl", "rb"))
+
+
+def undistort(img: MatLike):
+    h, w = img.shape[:2]
+    newCameraMatrix, roi = cv2.getOptimalNewCameraMatrix(
+        cameraMatrix, dist, (w, h), 1, (w, h))
+
+    dst = cv2.undistort(img, cameraMatrix, dist, None, newCameraMatrix)
+    x, y, w, h = roi
+    dst = dst[y:y+h, x:x+w]
+    return dst
+
+
 def print_result(result: GestureRecognizerResult, output_image: mp.Image, timestamp_ms: int):
     print('gesture recognition result: {} at {}'.format(
         result.gestures[0] if len(result.gestures) > 0 else [], timestamp_ms))
 
 
 options = GestureRecognizerOptions(
-    base_options=BaseOptions(model_asset_path='gesture_recognizer.task'),
+    base_options=BaseOptions(model_asset_path='utils/gesture_recognizer.task'),
     running_mode=VisionRunningMode.LIVE_STREAM,
     result_callback=print_result)
 with GestureRecognizer.create_from_options(options) as recognizer:
@@ -48,6 +65,8 @@ with GestureRecognizer.create_from_options(options) as recognizer:
         if not ret:
             print("Can't receive frame (stream end?). Exiting ...")
             break
+
+        frame = undistort(frame)
 
         frame = cv2.cvtColor(cv2.flip(frame, 0), cv2.COLOR_BGR2RGB)
         results = hands.process(frame)
