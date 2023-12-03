@@ -47,8 +47,8 @@ export default function IronMan() {
     <group
       ref={ref}
       onClick={(e) => setTarget(ref.current)}
-      onPointerOver={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
+      // onPointerOver={() => setHovered(true)}
+      // onPointerOut={() => setHovered(false)}
       scale={scale}
       position={[position.x, position.y, position.z]}
       rotation={[rotation.x, rotation.y, rotation.z]}

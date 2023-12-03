@@ -35,9 +35,32 @@ export default function Model() {
     mode: { value: "translate", options: ["translate", "rotate", "scale"] },
   });
 
+  const canvas = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("clicking");
+      if (canvas && canvas.current) {
+        console.log("canvas:" + canvas.current);
+        canvas.current.dispatchEvent(
+          new MouseEvent("click", {
+            clientX: 540,
             clientY: 440,
+            bubbles: true,
+          }),
+        );
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Canvas
+      onClick={(e) => {
+        console.log("click, x:" + e.clientX + ", y:" + e.clientY);
+      }}
+      ref={canvas}
       gl={{ antialias: false }}
       camera={{ position: [0, 0, 5], fov: 35 }}
       onCreated={(state) => {

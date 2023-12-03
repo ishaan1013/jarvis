@@ -1,11 +1,6 @@
 import cv2
 from cv2.typing import MatLike
 import mediapipe as mp
-import numpy as np
-import tensorflow as tf
-
-from mediapipe.tasks import python
-from mediapipe.tasks.python import vision
 
 import pickle
 
@@ -21,7 +16,10 @@ VisionRunningMode = mp.tasks.vision.RunningMode
 
 def calculate_distance(x1, y1, x2, y2):
     distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
-    return distance
+
+    res = 110*math.log(distance*100)-285
+
+    return res if res > 0 and res < 100 else 0 if res < 0 else 100
 
 
 cameraMatrix, dist = pickle.load(open("utils/calibration.pkl", "rb"))
@@ -91,7 +89,9 @@ with GestureRecognizer.create_from_options(options) as recognizer:
 
                 d = calculate_distance(x0, y0, x5, y5)
 
-                cv2.putText(frame, str(d*100), (int(x0 * frame_width), int(y0 * frame_height)),
+                # want upper limit at d*100=10?
+
+                cv2.putText(frame, str(d), (int(x0 * frame_width), int(y0 * frame_height)),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
                 mp_drawing.draw_landmarks(
