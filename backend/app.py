@@ -1,22 +1,32 @@
-from aiohttp import web
-import socketio
+from flask import Flask, render_template, Response, request, jsonify
+from flask_socketio import SocketIO, emit
+import logging
+from sys import stdout
 
-sio = socketio.AsyncServer(cors_allowed_origins='*')
-app = web.Application()
-sio.attach(app)
+from main import handRec
+
+app = Flask(__name__)
+app.logger.addHandler(logging.StreamHandler(stdout))
+app.config['DEBUG'] = True
+sio = SocketIO(app, cors_allowed_origins="*")
+
+# helper functions to pass into handRec
 
 
-async def menuHandler(request):
+async def emitPointer(x: float, y: float, z: float):
+    await emit('pointer', {"x": x, "y": y, "z": z})
 
-    open_param = request.rel_url.query.get('open', 'false')
 
-    if open_param.lower() == 'true':
-        await sio.emit('openMenu')
-    elif open_param.lower() == 'false':
-        await sio.emit('closeMenu')
+async def emitMode(mode: str, start: bool):
+    await emit('mode', {"mode": mode, "start": start})
 
-    res = {"status": "success"}
-    return web.json_response(res)
+
+async def emitClick():
+    await emit('click')
+
+
+async def emitMovement(type: str, object: str, x: float, y: float, z: float):
+    await emit(type, {"id": object, "x": x, "y": y, "z": z})
 
 
 @sio.on('trigger')
@@ -24,16 +34,17 @@ async def trigger(sid, message):
     print("Socket ID: ", sid, " at ", str(message))
 
     for i in range(400):
-        # for i in range(5):
         print(i)
-        # await sio.emit('translate', {"id": "porsche", "x": 0.001, "y": 0.001})
-        # await sio.emit('translate', {"id": "porsche", "x": 0.2, "y": 0.4})
-        await sio.emit('rotate', {"id": "porsche", "x": 0.03, "y": 0.03, "z": 0.03})
-        # await sio.emit('log', "id: porsche")
+        await emit('rotate', {"id": "porsche", "x": 0.03, "y": 0.03, "z": 0.03})
         await sio.sleep(0.01)
-        # await sio.sleep(1)
 
-app.router.add_get('/menu', menuHandler)
+
+@app.route("/test")
+def test():
+    return {
+        "test": True,
+    }
+
 
 if __name__ == '__main__':
-    web.run_app(app)
+    sio.run(app)
