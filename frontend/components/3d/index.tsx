@@ -57,9 +57,9 @@ export default function Model() {
 
   return (
     <Canvas
-      onClick={(e) => {
-        console.log("click, x:" + e.clientX + ", y:" + e.clientY);
-      }}
+      // onClick={(e) => {
+      //   console.log("click, x:" + e.clientX + ", y:" + e.clientY);
+      // }}
       ref={canvas}
       gl={{ antialias: false }}
       camera={{ position: [0, 0, 5], fov: 35 }}
