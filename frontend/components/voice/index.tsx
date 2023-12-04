@@ -48,10 +48,12 @@ export default function VoiceControl() {
       },
     },
     {
-      command: "Remove object",
+      command: "Remove *",
       callback: () => {
-        console.log("clearing all");
-        setTarget(null);
+        if (jarvis) {
+          setTarget(null);
+          setJarvis(false);
+        }
       },
     },
     {
