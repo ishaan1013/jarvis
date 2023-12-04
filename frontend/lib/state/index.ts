@@ -45,8 +45,8 @@ type State = {
   menuOpen: boolean;
   setMenuOpen: (menuOpen: boolean) => void;
   objects: Objects;
-  pointer: { x: number; y: number };
-  setPointer: (pointer: { x: number; y: number }) => void;
+  pointer: { x: number; y: number; z: number };
+  setPointer: (pointer: { x: number; y: number; z: number }) => void;
   setVisible: (modelName: ModelName, visible: boolean) => void;
   clearAll: () => void;
   setPosition: (
@@ -72,7 +72,7 @@ export const useStore = create<State>((set) => ({
   menuOpen: false,
   setMenuOpen: (menuOpen) => set({ menuOpen }),
   objects: initialObjects,
-  pointer: { x: 0.25, y: 0.25 },
+  pointer: { x: 0.25, y: 0.25, z: 0.25 },
   setPointer: (pointer) => set({ pointer }),
   setVisible: (modelName, visible) =>
     set((state) => ({

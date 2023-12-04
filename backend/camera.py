@@ -116,7 +116,7 @@ class GestureCamera:
                         d = self.calculate_distance(x0, y0, x5, y5) / 100
 
                         with self.app.test_request_context():
-                            self.emitPointer(self.sio, x5, d)
+                            self.emitPointer(self.sio, x5, d, y5)
 
                         # print("x:" + str(x5) + ", y:" +
                         #       str(y5) + ", z:" + str(d))

@@ -1,10 +1,8 @@
 from flask_socketio import SocketIO
 
 
-def emitPointer(sio: SocketIO, x: float, y: float):
-    # ('pointer', {"x": x, "y": y})
-    # print("EMITTING pointer", {"x": x, "y": y})
-    sio.emit('pointer', {"x": x, "y": y})
+def emitPointer(sio: SocketIO, x: float, y: float, z: float):
+    sio.emit('pointer', {"x": x, "y": y, "z": z})
 
 
 def emitMode(sio: SocketIO, mode: str | None):
