@@ -54,8 +54,7 @@ const menuItems = [
 ];
 
 export default function Menu() {
-  const { menuOpen, setMenuOpen, isConnected, jarvis, clearAll, gesture } =
-    useStore();
+  const { menuOpen, setMenuOpen, isConnected, jarvis, gesture } = useStore();
   const [active, setActive] = useState(0);
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -153,92 +152,43 @@ export default function Menu() {
 }
 
 function Models() {
-  const { objects, setVisible } = useStore();
+  const { target, setTarget } = useStore();
 
   return (
-    <div className="h-full w-full overflow-y-auto">
-      <div className="mb-4 flex w-full items-center">
-        <div className="text-muted-foreground">Visible</div>
-        <div className="ml-4 h-[1px] w-full bg-border" />
-      </div>
-      {modelData.map((model) => {
-        if (objects[model.id].visible) {
-          return (
-            <div
-              key={model.id}
-              className="mb-2 inline-flex h-24 w-full items-center justify-start overflow-hidden whitespace-nowrap rounded-md border border-border bg-muted-foreground/[0.03] text-sm"
-            >
-              <div className="aspect-square h-full bg-contain">
-                <Image
-                  src={model.preview}
-                  alt={model.name + " 3D Model"}
-                  className="h-full w-full object-contain"
-                />
-              </div>
-              <div className="ml-4">
-                <div className="text-base font-medium">{model.id}.glb</div>
-                {objects[model.id].visible ? (
-                  <Button
-                    onClick={() => {
-                      setVisible(model.id, !objects);
-                    }}
-                    variant="link"
-                    className="mt-1 h-auto p-0 font-normal text-red-500 underline hover:opacity-70"
-                  >
-                    Remove
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={() => {
-                      setVisible(model.id, !objects);
-                    }}
-                    variant="link"
-                    className="mt-1 h-auto p-0 font-normal underline hover:opacity-70 "
-                  >
-                    Add
-                  </Button>
-                )}
+    <div className="relative h-full w-full">
+      <div className="absolute -left-1 -top-1 h-full w-full overflow-y-auto p-1">
+        {modelData.map((model) => (
+          <button
+            key={model.id}
+            onClick={() => {
+              if (target === model.id) {
+                setTarget(null);
+              } else {
+                setTarget(model.id);
+              }
+            }}
+            className={`mb-2 inline-flex h-24 w-full items-center justify-start overflow-hidden whitespace-nowrap rounded-md border border-border bg-muted-foreground/[0.03] text-left text-sm duration-200 ${
+              model.id === target
+                ? "ring-2 ring-blue-500 ring-offset-2 ring-offset-background/75"
+                : ""
+            }`}
+          >
+            <div className="aspect-square h-full bg-contain">
+              <Image
+                src={model.preview}
+                alt={model.name + " 3D Model"}
+                className="h-full w-full object-contain"
+              />
+            </div>
+            <div className="ml-4">
+              <div className="text-base font-medium">{model.name}</div>
+              <div className="text-base text-muted-foreground">
+                {model.id}.glb
               </div>
             </div>
-          );
-        }
-        return null;
-      })}
-      <div className="mb-4 mt-2 flex w-full items-center">
-        <div className="text-muted-foreground">Hidden</div>
-        <div className="ml-4 h-[1px] w-full bg-border" />
+          </button>
+        ))}
       </div>
-      {modelData.map((model) => {
-        if (!objects[model.id].visible) {
-          return (
-            <div
-              key={model.id}
-              className="mb-2 inline-flex h-24 w-full items-center justify-start overflow-hidden whitespace-nowrap rounded-md border border-border bg-muted-foreground/[0.03] text-sm"
-            >
-              <div className="aspect-square h-full bg-contain">
-                <Image
-                  src={model.preview}
-                  alt={model.name + " 3D Model"}
-                  className="h-full w-full object-contain"
-                />
-              </div>
-              <div className="ml-4">
-                <div className="text-base font-medium">{model.id}.glb</div>
-                <Button
-                  onClick={() => {
-                    setVisible(model.id, true);
-                  }}
-                  variant="link"
-                  className="mt-1 h-auto p-0 font-normal underline hover:opacity-70 "
-                >
-                  Add
-                </Button>
-              </div>
-            </div>
-          );
-        }
-        return null;
-      })}
     </div>
   );
 }

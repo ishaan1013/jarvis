@@ -2,12 +2,6 @@ import { create } from "zustand";
 import initialObjects from "./initialObjects";
 import { off } from "process";
 
-// type Visible = {
-//   porsche: boolean;
-//   ironman: boolean;
-//   goose: boolean;
-// };
-
 type ObjectData = {
   name: string;
   offsetY: number;
@@ -24,7 +18,6 @@ type ObjectData = {
     z: number;
   };
   scale: number;
-  visible: boolean;
 };
 
 export type ModelName =
@@ -48,8 +41,6 @@ type State = {
   objects: Objects;
   pointer: { x: number; y: number; z: number };
   setPointer: (pointer: { x: number; y: number; z: number }) => void;
-  setVisible: (modelName: ModelName, visible: boolean) => void;
-  clearAll: () => void;
   setPosition: (
     modelName: ModelName,
     position: { x: number; y: number; z: number },
@@ -75,29 +66,6 @@ export const useStore = create<State>((set) => ({
   objects: initialObjects,
   pointer: { x: 0, y: 0, z: 0 },
   setPointer: (pointer) => set({ pointer }),
-  setVisible: (modelName, visible) =>
-    set((state) => ({
-      objects: {
-        ...state.objects,
-        [modelName]: {
-          ...state.objects[modelName],
-          visible,
-        },
-      },
-    })),
-  clearAll: () =>
-    set((state) => ({
-      objects: Object.keys(state.objects).reduce(
-        (acc, modelName) => ({
-          ...acc,
-          [modelName]: {
-            ...state.objects[modelName as ModelName],
-            visible: false,
-          },
-        }),
-        {} as Objects,
-      ),
-    })),
   setPosition: (modelName, position) =>
     set((state) => ({
       objects: {

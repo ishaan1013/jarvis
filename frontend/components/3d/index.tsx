@@ -16,19 +16,15 @@ import {
   HueSaturation,
   ToneMapping,
 } from "@react-three/postprocessing";
-import { LUTCubeLoader, ToneMappingMode } from "postprocessing";
+// import { LUTCubeLoader, ToneMappingMode } from "postprocessing";
 import { useStore } from "@/lib/state";
-import Porsche from "./porsche";
-import IronMan from "./ironman";
-import Goose from "./goose";
-import BlackHole from "./blackhole";
-import Minutes from "./minutes";
 import { useRef } from "react";
+import { displayModel } from "@/lib";
 
 export default function Model() {
   // const texture = useLoader(LUTCubeLoader, "/lut.cube");
 
-  const { objects } = useStore();
+  const { objects, target } = useStore();
 
   const canvas = useRef<HTMLCanvasElement>(null);
 
@@ -46,11 +42,7 @@ export default function Model() {
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -10, -10]} />
 
-      {objects.porsche.visible ? <Porsche /> : null}
-      {objects.ironman.visible ? <IronMan /> : null}
-      {objects.goose.visible ? <Goose /> : null}
-      {objects.blackhole.visible ? <BlackHole /> : null}
-      {objects.minutes.visible ? <Minutes /> : null}
+      {displayModel(target)}
 
       <OrbitControls
         enableRotate={false}

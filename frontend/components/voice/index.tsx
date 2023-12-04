@@ -10,8 +10,7 @@ import { useStore } from "@/lib/state";
 import voiceToModel from "./voiceToModel";
 
 export default function VoiceControl() {
-  const { setVisible, menuOpen, setMenuOpen, jarvis, setJarvis, clearAll } =
-    useStore();
+  const { menuOpen, setMenuOpen, jarvis, setJarvis, setTarget } = useStore();
 
   const commands = [
     {
@@ -43,30 +42,16 @@ export default function VoiceControl() {
           // console.log(model);
           const modelName = voiceToModel(model);
           // console.log(modelName);
-          if (modelName) {
-            setVisible(modelName, true);
-          }
+          setTarget(modelName);
           setJarvis(false);
         }
       },
     },
     {
-      command: "Remove (the) (a) *",
-      callback: (model: string) => {
-        if (jarvis) {
-          const modelName = voiceToModel(model);
-          if (modelName) {
-            setVisible(modelName, false);
-          }
-          setJarvis(false);
-        }
-      },
-    },
-    {
-      command: "Clear all",
+      command: "Remove object",
       callback: () => {
         console.log("clearing all");
-        clearAll();
+        setTarget(null);
       },
     },
     {

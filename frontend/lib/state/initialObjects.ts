@@ -14,7 +14,6 @@ const initialObjects = {
       z: 0,
     },
     scale: 1,
-    visible: false,
   },
   ironman: {
     name: "ironman",
@@ -31,7 +30,6 @@ const initialObjects = {
       z: 0,
     },
     scale: 1,
-    visible: false,
   },
   blackhole: {
     name: "blackhole",
@@ -48,7 +46,6 @@ const initialObjects = {
       z: 0.2,
     },
     scale: 1,
-    visible: false,
   },
   goose: {
     name: "goose",
@@ -65,7 +62,6 @@ const initialObjects = {
       z: 0,
     },
     scale: 1,
-    visible: true,
   },
   minutes: {
     name: "minutes",
@@ -82,7 +78,6 @@ const initialObjects = {
       z: 0,
     },
     scale: 1,
-    visible: false,
   },
 };
 
