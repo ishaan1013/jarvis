@@ -41,8 +41,8 @@ export type Objects = {
 export type Gestures = "drag" | "rotate" | "scale" | "point";
 
 type State = {
-  target: THREE.Object3D | null;
-  setTarget: (target: THREE.Object3D | null) => void;
+  target: ModelName | null;
+  setTarget: (target: ModelName | null) => void;
   menuOpen: boolean;
   setMenuOpen: (menuOpen: boolean) => void;
   objects: Objects;

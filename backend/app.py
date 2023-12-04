@@ -16,11 +16,11 @@ sio = SocketIO(app, cors_allowed_origins="*")
 Cam = GestureCamera(app, sio, emitPointer, emitMode, emitClick, emitMovement)
 
 
-@sio.on('trigger')
-def trigger(json):
-    for i in range(400):
-        emitMovement(sio, 'rotate', "goose", 0.03, 0.03, 0.06)
-        sio.sleep(0.01)
+# @sio.on('trigger')
+# def trigger(json):
+#     for i in range(400):
+#         emitMovement(sio, 'rotate', "goose", 0.03, 0.03, 0.06)
+#         sio.sleep(0.01)
 
 
 @app.route("/test")

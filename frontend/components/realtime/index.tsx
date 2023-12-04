@@ -13,7 +13,7 @@ export const trigger = () => {
 export default function RealTime() {
   const [modal, setModal] = useState(false);
   const [messages, setMessages] = useState<string[]>([]);
-  const { isConnected, setIsConnected } = useStore();
+  const { setIsConnected, target } = useStore();
 
   const {
     objects,
@@ -51,23 +51,19 @@ export default function RealTime() {
     }
 
     function onPointer(data: { x: number; y: number; z: number }) {
-      // const { x, y } = pointer;
-      // setPointer({
-      //   x: x + data.x,
-      //   y: y + data.y,
-      // });
-
       setPointer(data);
 
-      if (gesture === "drag") {
-        setPosition("goose", {
-          ...mapTranslation(data.x * 100, data.y * 100),
-          z: 0,
-        });
-      } else if (gesture === "rotate") {
-        setRotation("goose", mapRotation(data.x, data.y, data.z));
-      } else if (gesture === "scale") {
-        setScale("goose", mapScale(data.z));
+      if (target) {
+        if (gesture === "drag") {
+          setPosition(target, {
+            ...mapTranslation(data.x * 100, data.y * 100),
+            z: 0,
+          });
+        } else if (gesture === "rotate") {
+          setRotation(target, mapRotation(data.x, data.y, data.z));
+        } else if (gesture === "scale") {
+          setScale(target, mapScale(data.z));
+        }
       }
     }
 
