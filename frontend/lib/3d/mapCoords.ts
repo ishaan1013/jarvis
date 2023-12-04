@@ -18,3 +18,7 @@ export const mapRotation = (x: number, y: number, z: number) => {
 
   return res;
 };
+
+export const mapScale = (z: number) => {
+  return 1.5 - z;
+};

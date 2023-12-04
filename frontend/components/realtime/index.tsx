@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Logs from "./logs";
-import { socket, mapTranslation, mapRotation } from "@/lib";
+import { socket, mapTranslation, mapRotation, mapScale } from "@/lib";
 import { Gestures, ModelName, useStore } from "@/lib/state";
 import { mapGestures } from "@/lib/3d/mapGestures";
 
@@ -67,6 +67,7 @@ export default function RealTime() {
       } else if (gesture === "rotate") {
         setRotation("goose", mapRotation(data.x, data.y, data.z));
       } else if (gesture === "scale") {
+        setScale("goose", mapScale(data.z));
       }
     }
 
