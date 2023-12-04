@@ -71,18 +71,15 @@ export default function Menu() {
 
   return (
     <>
-      <button
+      {/* <button
         onClick={() => trigger()}
         className="absolute left-16 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-md border border-muted-foreground/50 bg-secondary"
       >
         <Zap className="h-5 w-5" />
-      </button>
-      <div className="absolute left-32 top-4 z-50 flex h-10 items-center text-muted-foreground">
-        {/* {mousePosition.x}, {mousePosition.y} */}
-        {/* 850, 400 */}
-        {/* {innerHeight}, {innerWidth} */}
+      </button> */}
+      {/* <div className="absolute left-32 top-4 z-50 flex h-10 items-center text-muted-foreground">
         {JSON.stringify(gesture)}
-      </div>
+      </div> */}
       <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
         <DialogTrigger>
           <button className="gesture-clickable absolute left-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-md border border-muted-foreground/50 bg-secondary">

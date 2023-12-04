@@ -1,13 +1,8 @@
 import * as THREE from "three";
-import {
-  MeshTransmissionMaterial,
-  useGLTF,
-  useCursor,
-} from "@react-three/drei";
+import { MeshTransmissionMaterial, useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
 import { useRef, useState } from "react";
-import { useStore } from "@/lib/state";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -22,54 +17,9 @@ export default function Flower() {
   const { nodes, materials } = useGLTF(
     "/3d/flower-transformed.glb",
   ) as GLTFResult;
-  const { target, setTarget } = useStore();
-  const [hovered, setHovered] = useState(false);
-  useCursor(hovered);
-
-  const ref = useRef<THREE.Group>(null!);
-  const [position, setPosition] = useState<{
-    x: number;
-    y: number;
-    z: number;
-  }>({
-    x: 0,
-    y: 0,
-    z: 0,
-  });
-
-  const [rotation, setRotation] = useState<{
-    x: number;
-    y: number;
-    z: number;
-  }>({
-    x: 0,
-    y: 0,
-    z: 0,
-  });
-
-  const [scale, setScale] = useState(0.5);
-
-  // useFrame(() => {
-  //   if (target) {
-  //     setRotation((state) => ({
-  //       x: state.x + 0.01,
-  //       y: state.y + 0.01,
-  //       z: state.z + 0.01,
-  //     }));
-  //   }
-  // });
 
   return (
-    <group
-      ref={ref}
-      onClick={(e) => setTarget(ref.current)}
-      onPointerOver={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
-      scale={scale}
-      position={[position.x, position.y, position.z]}
-      rotation={[rotation.x, rotation.y, rotation.z]}
-      dispose={null}
-    >
+    <group scale={0.5} position={[0, 0, 0]} rotation={[0, 0, 0]} dispose={null}>
       <mesh geometry={nodes.petals.geometry}>
         <MeshTransmissionMaterial
           backside

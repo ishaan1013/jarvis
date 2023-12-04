@@ -7,7 +7,6 @@ import {
   Lightformer,
   OrbitControls,
   useGLTF,
-  TransformControls,
 } from "@react-three/drei";
 import {
   EffectComposer,
@@ -18,48 +17,23 @@ import {
   ToneMapping,
 } from "@react-three/postprocessing";
 import { LUTCubeLoader, ToneMappingMode } from "postprocessing";
-import { useControls } from "leva";
 import { useStore } from "@/lib/state";
 import Porsche from "./porsche";
 import IronMan from "./ironman";
 import Goose from "./goose";
 import BlackHole from "./blackhole";
 import Minutes from "./minutes";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 export default function Model() {
   // const texture = useLoader(LUTCubeLoader, "/lut.cube");
 
-  const { target, setTarget, objects } = useStore();
-  const { mode } = useControls({
-    mode: { value: "translate", options: ["translate", "rotate", "scale"] },
-  });
+  const { objects } = useStore();
 
   const canvas = useRef<HTMLCanvasElement>(null);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     // console.log("clicking");
-  //     if (canvas && canvas.current) {
-  //       console.log("canvas:" + canvas.current);
-  //       canvas.current.dispatchEvent(
-  //         new MouseEvent("click", {
-  //           clientX: 540,
-  //           clientY: 440,
-  //           bubbles: true,
-  //         }),
-  //       );
-  //     }
-  //   }, 5000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
-
   return (
     <Canvas
-      // onClick={(e) => {
-      //   console.log("click, x:" + e.clientX + ", y:" + e.clientY);
-      // }}
       ref={canvas}
       gl={{ antialias: false }}
       camera={{ position: [0, 0, 200], fov: 1 }}
@@ -77,13 +51,6 @@ export default function Model() {
       {objects.goose.visible ? <Goose /> : null}
       {objects.blackhole.visible ? <BlackHole /> : null}
       {objects.minutes.visible ? <Minutes /> : null}
-
-      {target && (
-        <TransformControls
-          object={target}
-          mode={mode as "translate" | "rotate" | "scale"}
-        />
-      )}
 
       <OrbitControls
         enableRotate={false}

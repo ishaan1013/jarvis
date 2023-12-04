@@ -51,10 +51,11 @@ class GestureCamera:
 
     def result_handler(self, result, output_image: mp.Image, timestamp_ms: int):
 
-        current = result.gestures[0][0].category_name if len(
-            result.gestures) > 0 else None
+        current = str(result.gestures[0][0].category_name) if len(
+            result.gestures) > 0 else "None"
 
-        if current != self.lastGesture:
+        if current != str(self.lastGesture):
+            self.lastGesture = current
             with self.app.test_request_context():
                 self.emitMode(self.sio, current)
         # print('gesture recognition result: {} at {}'.format(

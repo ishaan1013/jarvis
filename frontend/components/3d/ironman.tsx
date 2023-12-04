@@ -1,8 +1,7 @@
 import * as THREE from "three";
-import { useGLTF, useCursor } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
-import { useRef, useState } from "react";
 import { useStore } from "@/lib/state";
 
 type GLTFResult = GLTF & {
@@ -21,11 +20,6 @@ type ContextType = Record<
 
 export default function IronMan() {
   const { nodes, materials } = useGLTF("/3d/ironman.glb") as GLTFResult;
-  const { target, setTarget } = useStore();
-  const [hovered, setHovered] = useState(false);
-  useCursor(hovered);
-
-  const ref = useRef<THREE.Group>(null!);
 
   const { objects } = useStore();
 
@@ -35,22 +29,8 @@ export default function IronMan() {
   const rotation = objects.ironman.rotation;
   const scale = objects.ironman.scale;
 
-  // useFrame(() => {
-  //   if (target) {
-  //     setRotation((state) => ({
-  //       x: state.x + 0.01,
-  //       y: state.y + 0.01,
-  //       z: state.z + 0.01,
-  //     }));
-  //   }
-  // });
-
   return (
     <group
-      ref={ref}
-      onClick={(e) => setTarget(ref.current)}
-      // onPointerOver={() => setHovered(true)}
-      // onPointerOut={() => setHovered(false)}
       scale={scale + offsetScale}
       position={[position.x, position.y - offsetY, position.z]}
       rotation={[rotation.x, rotation.y, rotation.z]}

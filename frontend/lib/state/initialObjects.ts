@@ -53,7 +53,7 @@ const initialObjects = {
   goose: {
     name: "goose",
     offsetY: 0.1,
-    offsetScale: 1,
+    offsetScale: 2,
     position: {
       x: 0,
       y: 0,

@@ -45,16 +45,6 @@ import { useControls } from "leva";
 //   );
 // }
 
-type State = {
-  target: THREE.Object3D | null;
-  setTarget: (target: THREE.Object3D | null) => void;
-};
-
-const useStore = create<State>((set) => ({
-  target: null,
-  setTarget: (target) => set({ target }),
-}));
-
 type GLTFResult = GLTF & {
   nodes: {
     petals: THREE.Mesh;
@@ -103,9 +93,6 @@ function Flower() {
   return (
     <group
       ref={ref}
-      // onClick={(e) => setTarget(ref.current)}
-      // onPointerOver={() => setHovered(true)}
-      // onPointerOut={() => setHovered(false)}
       scale={scale}
       position={[position.x, position.y, position.z]}
       rotation={[rotation.x, rotation.y, rotation.z]}

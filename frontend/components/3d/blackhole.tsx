@@ -71,9 +71,6 @@ export default function BlackHole() {
   return (
     <group
       ref={group}
-      // onClick={(e) => setTarget(group.current)}
-      // onPointerOver={() => setHovered(true)}
-      // onPointerOut={() => setHovered(false)}
       scale={scale + offsetScale}
       position={[position.x, position.y - offsetY, position.z]}
       rotation={[rotation.x, rotation.y, rotation.z]}
