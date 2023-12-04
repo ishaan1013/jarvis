@@ -31,6 +31,22 @@ const initialObjects = {
     },
     scale: 1,
   },
+  mobius: {
+    name: "mobius",
+    offsetY: 0,
+    offsetScale: 0,
+    position: {
+      x: 0,
+      y: 0,
+      z: 0,
+    },
+    rotation: {
+      x: -0.4,
+      y: 0.5,
+      z: 0,
+    },
+    scale: 1,
+  },
   blackhole: {
     name: "blackhole",
     offsetY: 0.2,
@@ -66,7 +82,7 @@ const initialObjects = {
   minutes: {
     name: "minutes",
     offsetY: 0.5,
-    offsetScale: 1,
+    offsetScale: 1.5,
     position: {
       x: 0,
       y: 0,

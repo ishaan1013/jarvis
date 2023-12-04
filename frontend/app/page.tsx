@@ -1,6 +1,7 @@
 import Model from "@/components/3d/landing";
 import { ArrowRight, Link2 } from "lucide-react";
 import Link from "next/link";
+import Intro from "@/components/voice/intro";
 
 export default function Home() {
   return (
@@ -16,8 +17,9 @@ export default function Home() {
           <div className="rounded-full border border-muted-foreground px-4 py-1">
             Team 10
           </div>
+          <Intro />
         </div>
-        <div className="mt-24 max-w-xl text-xl text-muted-foreground">
+        <div className="mb-4 mt-24 max-w-xl text-xl text-muted-foreground">
           An touch-free, interactive 3D hologram experience. Interact with a{" "}
           <a
             href="https://en.wikipedia.org/wiki/Pepper%27s_ghost"
@@ -29,7 +31,7 @@ export default function Home() {
           illusion through three-dimensional hand gestures. and voice commands.
         </div>
         <Link href="/app">
-          <button className="group mt-4 flex items-center border-b border-muted-foreground py-0.5 text-xl font-semibold duration-300 hover:border-muted-foreground hover:text-muted-foreground">
+          <button className="group flex items-center border-b border-muted-foreground py-0.5 text-xl font-semibold duration-300 hover:border-muted-foreground hover:text-muted-foreground">
             Enter{" "}
             <ArrowRight className="ml-2 h-4 w-4 rotate-0 duration-300 group-hover:-rotate-45" />
           </button>

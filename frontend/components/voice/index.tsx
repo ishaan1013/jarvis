@@ -9,13 +9,49 @@ import { Mic } from "lucide-react";
 import { useStore } from "@/lib/state";
 import voiceToModel from "./voiceToModel";
 
+import * as voice from "./jarvis";
+
 export default function VoiceControl() {
   const { menuOpen, setMenuOpen, jarvis, setJarvis, setTarget } = useStore();
+
+  const confirmation = () => {
+    const i = Math.floor(Math.random() * 4);
+    i === 0
+      ? voice.sure.play()
+      : i === 1
+      ? voice.gotit.play()
+      : i === 2
+      ? voice.onit.play()
+      : voice.ofcourse.play();
+  };
+
+  const acknowledgement = () => {
+    const i = Math.floor(Math.random() * 4);
+    i === 0
+      ? voice.yessir.play()
+      : i === 1
+      ? voice.atyourservice.play()
+      : i === 2
+      ? voice.howcanihelp.play()
+      : voice.listening.play();
+  };
 
   const commands = [
     {
       command: "(Hey) Jarvis",
-      callback: () => setJarvis(true),
+      callback: () => {
+        setJarvis(true);
+        acknowledgement();
+      },
+    },
+    {
+      command: "introduce yourself",
+      callback: () => {
+        if (jarvis) {
+          voice.introduction.play();
+          setJarvis(false);
+        }
+      },
     },
     {
       command: "Open (The) Menu",
@@ -23,6 +59,7 @@ export default function VoiceControl() {
         if (jarvis) {
           setMenuOpen(true);
           setJarvis(false);
+          confirmation();
         }
       },
     },
@@ -32,6 +69,7 @@ export default function VoiceControl() {
         if (jarvis) {
           setMenuOpen(false);
           setJarvis(false);
+          confirmation();
         }
       },
     },
@@ -39,11 +77,12 @@ export default function VoiceControl() {
       command: "Add (the) (a) *",
       callback: (model: string) => {
         if (jarvis) {
-          // console.log(model);
+          console.log(model);
           const modelName = voiceToModel(model);
-          // console.log(modelName);
+          console.log(modelName);
           setTarget(modelName);
           setJarvis(false);
+          confirmation();
         }
       },
     },
@@ -53,6 +92,7 @@ export default function VoiceControl() {
         if (jarvis) {
           setTarget(null);
           setJarvis(false);
+          confirmation();
         }
       },
     },
@@ -87,7 +127,7 @@ export default function VoiceControl() {
       if (initialValue === transcript) {
         setJarvis(false);
       }
-    }, 3000);
+    }, 5000);
     return () => clearTimeout(disableOffsetTimeout);
   }, [transcript]);
 

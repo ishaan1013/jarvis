@@ -88,7 +88,7 @@ export default function Model() {
         </group>
       </Environment>
       <EffectComposer disableNormalPass>
-        {/* <Bloom mipmapBlur luminanceThreshold={1} intensity={1} /> */}
+        <Bloom mipmapBlur luminanceThreshold={1} intensity={0.25} />
         <BrightnessContrast brightness={0} contrast={0.1} />
         <HueSaturation hue={0} saturation={0.1} />
         {/* <ToneMapping mode={ToneMappingMode.ACES_FILMIC} /> */}

@@ -23,6 +23,7 @@ type ObjectData = {
 export type ModelName =
   | "porsche"
   | "ironman"
+  | "mobius"
   | "blackhole"
   | "goose"
   | "minutes";
