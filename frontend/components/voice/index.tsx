@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "regenerator-runtime/runtime";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -16,6 +16,7 @@ export default function VoiceControl() {
 
   const confirmation = () => {
     const i = Math.floor(Math.random() * 4);
+
     i === 0
       ? voice.sure.play()
       : i === 1
@@ -27,6 +28,7 @@ export default function VoiceControl() {
 
   const acknowledgement = () => {
     const i = Math.floor(Math.random() * 4);
+
     i === 0
       ? voice.yessir.play()
       : i === 1
@@ -42,15 +44,6 @@ export default function VoiceControl() {
       callback: () => {
         setJarvis(true);
         acknowledgement();
-      },
-    },
-    {
-      command: "introduce yourself",
-      callback: () => {
-        if (jarvis) {
-          voice.introduction.play();
-          setJarvis(false);
-        }
       },
     },
     {

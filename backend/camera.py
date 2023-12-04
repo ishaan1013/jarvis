@@ -86,7 +86,7 @@ class GestureCamera:
                 max_num_hands=2,
             )
 
-            webcam = cv2.VideoCapture(1)
+            webcam = cv2.VideoCapture(0)
 
             while webcam.isOpened():
                 ret, frame = webcam.read()

@@ -2,7 +2,7 @@ import PreviewPorsche from "@/public/3d/previews/porsche.png";
 import PreviewIronman from "@/public/3d/previews/ironman.png";
 import PreviewMobius from "@/public/3d/previews/mobius.png";
 import PreviewBlackhole from "@/public/3d/previews/blackhole.png";
-import PreviewBrain from "@/public/3d/previews/blackhole.png";
+import PreviewBrain from "@/public/3d/previews/brain.png";
 import PreviewGoose from "@/public/3d/previews/goose.png";
 import PreviewMinutes from "@/public/3d/previews/minutes.png";
 import { StaticImageData } from "next/image";

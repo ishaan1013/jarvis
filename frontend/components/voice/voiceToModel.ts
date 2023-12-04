@@ -2,12 +2,11 @@ import { ModelName } from "@/lib/state";
 
 const models = {
   "Iron Man": "ironman",
-  "mobius strip": "mobius",
+  "Mobius strip": "mobius",
   car: "porsche",
   goose: "goose",
   "black hole": "blackhole",
   brain: "brain",
-  shapeshifter: "shapeshift",
   "Mis minutes": "minutes",
   "Miss minutes": "minutes",
 };
