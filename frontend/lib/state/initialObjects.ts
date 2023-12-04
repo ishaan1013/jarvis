@@ -1,5 +1,6 @@
 const initialObjects = {
   porsche: {
+    name: "porsche",
     position: {
       x: 0,
       y: 0,
@@ -14,6 +15,7 @@ const initialObjects = {
     visible: false,
   },
   ironman: {
+    name: "ironman",
     position: {
       x: 0,
       y: -0.75,
@@ -28,6 +30,7 @@ const initialObjects = {
     visible: true,
   },
   blackhole: {
+    name: "blackhole",
     position: {
       x: 0.2,
       y: -0.2,
@@ -42,6 +45,7 @@ const initialObjects = {
     visible: false,
   },
   goose: {
+    name: "goose",
     position: {
       x: 0,
       y: -0.1,
@@ -56,6 +60,7 @@ const initialObjects = {
     visible: false,
   },
   minutes: {
+    name: "minutes",
     position: {
       x: 0,
       y: -0.5,

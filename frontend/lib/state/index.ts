@@ -8,6 +8,7 @@ import initialObjects from "./initialObjects";
 // };
 
 type ObjectData = {
+  name: string;
   position: {
     x: number;
     y: number;
@@ -30,7 +31,7 @@ export type ModelName =
   | "goose"
   | "minutes";
 
-type Objects = {
+export type Objects = {
   [key in ModelName]: ObjectData;
 };
 
