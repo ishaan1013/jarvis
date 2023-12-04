@@ -4,7 +4,7 @@ import { useStore } from "@/lib/state";
 import { useEffect, useState } from "react";
 
 export default function Cursor() {
-  const { pointer } = useStore();
+  const { pointer, pointerClick, clearClick } = useStore();
 
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
@@ -17,6 +17,15 @@ export default function Cursor() {
       setY(height * pointer.y);
     }
   }, [pointer]);
+
+  useEffect(() => {
+    if (pointerClick) {
+      // ...
+      console.log("pointer click");
+
+      clearClick();
+    }
+  }, [pointerClick]);
 
   return (
     <div

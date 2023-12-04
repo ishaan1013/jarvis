@@ -40,6 +40,9 @@ type State = {
   setMenuOpen: (menuOpen: boolean) => void;
   objects: Objects;
   pointer: { x: number; y: number; z: number };
+  pointerClick: boolean;
+  queueClick: () => void;
+  clearClick: () => void;
   setPointer: (pointer: { x: number; y: number; z: number }) => void;
   setPosition: (
     modelName: ModelName,
@@ -65,6 +68,9 @@ export const useStore = create<State>((set) => ({
   setMenuOpen: (menuOpen) => set({ menuOpen }),
   objects: initialObjects,
   pointer: { x: 0, y: 0, z: 0 },
+  pointerClick: false,
+  queueClick: () => set({ pointerClick: true }),
+  clearClick: () => set({ pointerClick: false }),
   setPointer: (pointer) => set({ pointer }),
   setPosition: (modelName, position) =>
     set((state) => ({

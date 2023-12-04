@@ -13,7 +13,7 @@ export const trigger = () => {
 export default function RealTime() {
   const [modal, setModal] = useState(false);
   const [messages, setMessages] = useState<string[]>([]);
-  const { setIsConnected, target } = useStore();
+  const { setIsConnected, target, queueClick } = useStore();
 
   const {
     objects,
@@ -56,7 +56,7 @@ export default function RealTime() {
           Math.round(data.z * 10) / 10 < 0.5 &&
           Math.round(pointer.z * 10) / 10 >= 0.5
         ) {
-          console.log("pointer click");
+          queueClick();
         }
       }
 
