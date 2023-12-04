@@ -3,12 +3,13 @@ from flask_socketio import SocketIO, emit
 import logging
 from sys import stdout
 
-from main import handRec
+from main import GestureCamera
 
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['DEBUG'] = True
 sio = SocketIO(app, cors_allowed_origins="*")
+Cam = GestureCamera()
 
 # helper functions to pass into handRec
 
