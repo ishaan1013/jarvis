@@ -51,6 +51,15 @@ export default function RealTime() {
     }
 
     function onPointer(data: { x: number; y: number; z: number }) {
+      if (gesture === "point") {
+        if (
+          Math.round(data.z * 10) / 10 < 0.5 &&
+          Math.round(pointer.z * 10) / 10 >= 0.5
+        ) {
+          console.log("pointer click");
+        }
+      }
+
       setPointer(data);
 
       if (target) {
@@ -71,32 +80,11 @@ export default function RealTime() {
       setGesture(data.mode === "none" ? null : mapGestures(data.mode));
     }
 
-    // function onTranslate(data: { id: string; x: number; y: number }) {
-    //   const modelName = data.id as ModelName;
-    //   const { x, y } = objects[modelName].position;
-    //   setPosition(modelName, {
-    //     x: x + data.x,
-    //     y: y + data.y,
-    //     z: 0,
-    //   });
-    // }
-
-    // function onRotate(data: { id: string; x: number; y: number; z: number }) {
-    //   const modelName = data.id as ModelName;
-    //   setRotation(modelName, {
-    //     x: objects[modelName].rotation.x + data.x,
-    //     y: objects[modelName].rotation.y + data.y,
-    //     z: objects[modelName].rotation.z + data.z,
-    //   });
-    // }
-
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("log", onLog);
     socket.on("pointer", onPointer);
     socket.on("mode", onMode);
-    // socket.on("translate", onTranslate);
-    // socket.on("rotate", onRotate);
 
     return () => {
       socket.off("connect", onConnect);
@@ -104,8 +92,6 @@ export default function RealTime() {
       socket.off("log", onLog);
       socket.off("pointer", onPointer);
       socket.off("mode", onMode);
-      // socket.off("translate", onTranslate);
-      // socket.off("rotate", onRotate);
     };
   }, [objects, pointer]);
 

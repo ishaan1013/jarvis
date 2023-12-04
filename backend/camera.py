@@ -31,6 +31,8 @@ class GestureCamera:
         thread.daemon = True
         thread.start()
 
+        # self.handRec()
+
     def calculate_distance(self, x1, y1, x2, y2):
         distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
 
@@ -58,8 +60,10 @@ class GestureCamera:
             self.lastGesture = current
             with self.app.test_request_context():
                 self.emitMode(self.sio, current)
-        # print('gesture recognition result: {} at {}'.format(
-        #     result.gestures[0][0].category_name if len(result.gestures) > 0 else [], timestamp_ms))
+
+        # if (len(result.gestures) > 0):
+        #     print('gesture recognition result: {} at {}'.format(
+        #         result.gestures[0][0].category_name, timestamp_ms))
 
     def handRec(self):
 
@@ -74,7 +78,7 @@ class GestureCamera:
 
             mp_hands = mp.solutions.hands
             # mp_drawing needed when displaying hand landmarks on cv2.imshow
-            mp_drawing = mp.solutions.drawing_utils
+            # mp_drawing = mp.solutions.drawing_utils
 
             hands = mp_hands.Hands(
                 min_detection_confidence=0.5,
@@ -82,7 +86,7 @@ class GestureCamera:
                 max_num_hands=2,
             )
 
-            webcam = cv2.VideoCapture(0)
+            webcam = cv2.VideoCapture(1)
 
             while webcam.isOpened():
                 ret, frame = webcam.read()
@@ -129,12 +133,12 @@ class GestureCamera:
                         #     frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
                 # cv2.imshow('MediaPipe Hands', frame)
-                if cv2.waitKey(5) & 0xFF == ord("q"):
-                    break
+                # if cv2.waitKey(5) & 0xFF == ord("q"):
+                #     break
 
             webcam.release()
             cv2.destroyAllWindows()
 
 
-# if __name__ == "__main__":
-#     Cam = GestureCamera()
+if __name__ == "__main__":
+    Cam = GestureCamera()

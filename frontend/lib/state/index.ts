@@ -61,7 +61,7 @@ type State = {
 export const useStore = create<State>((set) => ({
   target: null,
   setTarget: (target) => set({ target }),
-  menuOpen: false,
+  menuOpen: true,
   setMenuOpen: (menuOpen) => set({ menuOpen }),
   objects: initialObjects,
   pointer: { x: 0, y: 0, z: 0 },
