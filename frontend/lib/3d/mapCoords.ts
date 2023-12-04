@@ -9,8 +9,8 @@ export const mapTranslation = (x: number, y: number) => {
 // 4piz/100 - 2pi
 export const mapRotation = (x: number, y: number, z: number) => {
   const res = {
-    x: (4 * Math.PI * y - 2 * Math.PI) * 0.25,
-    y: (4 * Math.PI * x - 2 * Math.PI) * 0.25,
+    x: (4 * Math.PI * y - 2 * Math.PI) * 0.4,
+    y: (4 * Math.PI * x - 2 * Math.PI) * 0.4,
     z: 0,
   };
 
