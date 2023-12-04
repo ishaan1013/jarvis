@@ -123,10 +123,12 @@ export default function VoiceControl() {
       className={`absolute left-1/2 top-4 z-50 flex h-10 -translate-x-1/2 items-center justify-center rounded-full border border-muted-foreground/50 bg-secondary px-4 duration-200 ${
         jarvis && !menuOpen
           ? "visible translate-y-0 opacity-100"
-          : "invisible -translate-y-2 opacity-0"
+          : // : "visible translate-y-0 opacity-100"
+            "invisible -translate-y-2 opacity-0"
       }`}
     >
       <Mic className="mr-2 h-4 w-4" /> Jarvis is listening...
+      {/* <Mic className="mr-2 h-4 w-4" /> {transcript} */}
     </div>
   );
 }
