@@ -5,7 +5,7 @@ from sys import stdout
 
 from helpers import emitPointer, emitMode, emitClick, emitMovement
 
-from main import GestureCamera
+from camera import GestureCamera
 
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(stdout))
@@ -17,8 +17,8 @@ Cam = GestureCamera(app, sio, emitPointer, emitMode, emitClick, emitMovement)
 @sio.on('trigger')
 async def trigger(json):
     for i in range(400):
-        # await emit(sio, 'rotate', {"id": "porsche", "x": 0.03, "y": 0.03, "z": 0.03})
-        await emitPointer(sio, 0.001, 0.001)
+        # emit(sio, 'rotate', {"id": "porsche", "x": 0.03, "y": 0.03, "z": 0.03})
+        emitPointer(sio, 0.001, 0.001)
         sio.sleep(0.01)
 
 

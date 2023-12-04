@@ -120,8 +120,8 @@ class GestureCamera:
                         # cv2.putText(frame, "x:" + str(round(x5*frame_width)) + ", y:" + str(round(y5*frame_height)) + ", z:" + str(round(d)), (int(x0 * frame_width), int(y0 * frame_height)),
                         #             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
-                        mp_drawing.draw_landmarks(
-                            frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                        # mp_drawing.draw_landmarks(
+                        #     frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
                 # cv2.imshow('MediaPipe Hands', frame)
                 if cv2.waitKey(5) & 0xFF == ord("q"):
