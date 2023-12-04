@@ -106,12 +106,12 @@ class GestureCamera:
                         x5 = hand_landmarks.landmark[5].x
                         y5 = hand_landmarks.landmark[5].y
 
-                        d = self.calculate_distance(x0, y0, x5, y5)
+                        d = self.calculate_distance(x0, y0, x5, y5) / 100
 
-                        # self.emitPointer(x5, y5, d)
+                        self.emitPointer(x5, y5)
 
-                        print("x:" + str(round(x5*frame_width)) + ", y:" +
-                              str(round(y5*frame_height)) + ", z:" + str(round(d)))
+                        print("x:" + str(x5) + ", y:" +
+                              str(y5) + ", z:" + str(d))
 
                         # cv2.putText(frame, "x:" + str(round(x5*frame_width)) + ", y:" + str(round(y5*frame_height)) + ", z:" + str(round(d)), (int(x0 * frame_width), int(y0 * frame_height)),
                         #             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)

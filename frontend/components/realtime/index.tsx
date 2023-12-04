@@ -22,7 +22,8 @@ export default function RealTime() {
   //   y: 0,
   // });
 
-  const { objects, setPosition, setRotation, setScale } = useStore();
+  const { objects, setPosition, setRotation, setScale, setPointer } =
+    useStore();
 
   useEffect(() => {
     socket.connect();
@@ -46,6 +47,10 @@ export default function RealTime() {
 
     function onLog(value: string) {
       setMessages([value, ...messages]);
+    }
+
+    function onPointer(data: { x: number; y: number }) {
+      setPointer({ x: data.x, y: data.y });
     }
 
     function onTranslate(data: { id: string; x: number; y: number }) {

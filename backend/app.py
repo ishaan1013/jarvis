@@ -14,8 +14,8 @@ Cam = GestureCamera()
 # helper functions to pass into handRec
 
 
-async def emitPointer(x: float, y: float, z: float):
-    await emit('pointer', {"x": x, "y": y, "z": z})
+async def emitPointer(x: float, y: float):
+    await emit('pointer', {"x": x, "y": y})
 
 
 async def emitMode(mode: str, start: bool):

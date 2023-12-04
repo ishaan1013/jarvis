@@ -69,36 +69,10 @@ export default function Menu() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     console.log("clicking");
-  //     const el = document.elementsFromPoint(
-  //       mousePosition.x,
-  //       mousePosition.y,
-  //     ) as HTMLElement[] | null[];
-  //     if (el) {
-  //       console.log("el: ", el);
-  //       // el.click();
-  //       el.forEach((e) => {
-  //         // if the element is a button
-  //         if (
-  //           e?.tagName === "BUTTON" ||
-  //           e?.tagName === "A" ||
-  //           e?.classList.contains("gesture-clickable")
-  //         ) {
-  //           e.click();
-  //         }
-  //       });
-  //     } else console.log("no el");
-  //   }, 5000);
-  //   return () => clearInterval(interval);
-  // }, [mousePosition]);
-
   return (
     <>
       <button
-        // onClick={() => trigger()}
-        onClick={() => clearAll()}
+        onClick={() => trigger()}
         className="absolute left-16 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-md border border-muted-foreground/50 bg-secondary"
       >
         <Zap className="h-5 w-5" />
@@ -106,6 +80,7 @@ export default function Menu() {
       <div className="absolute left-32 top-4 z-50 flex h-10 items-center text-muted-foreground">
         {mousePosition.x}, {mousePosition.y}
         {/* 850, 400 */}
+        {/* {innerHeight}, {innerWidth} */}
       </div>
       <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
         <DialogTrigger>

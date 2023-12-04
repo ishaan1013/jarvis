@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import initialObjects from "./initialObjects";
 
 // type Visible = {
 //   porsche: boolean;
@@ -35,85 +36,14 @@ type Objects = {
 
 export type Gestures = "drag" | "rotate" | "scale" | "point";
 
-const initialObjects = {
-  porsche: {
-    position: {
-      x: 0,
-      y: 0,
-      z: 0,
-    },
-    rotation: {
-      x: 0.2,
-      y: 4.5,
-      z: 0,
-    },
-    scale: 0.3,
-    visible: false,
-  },
-  ironman: {
-    position: {
-      x: 0,
-      y: -0.75,
-      z: 0,
-    },
-    rotation: {
-      x: 0,
-      y: 0,
-      z: 0,
-    },
-    scale: 0.7,
-    visible: true,
-  },
-  blackhole: {
-    position: {
-      x: 0.2,
-      y: -0.2,
-      z: -0.4,
-    },
-    rotation: {
-      x: 0.1,
-      y: 0,
-      z: 0.2,
-    },
-    scale: 1,
-    visible: false,
-  },
-  goose: {
-    position: {
-      x: 0,
-      y: -0.1,
-      z: 0,
-    },
-    rotation: {
-      x: 0,
-      y: 0,
-      z: 0,
-    },
-    scale: 2,
-    visible: false,
-  },
-  minutes: {
-    position: {
-      x: 0,
-      y: -0.5,
-      z: 0,
-    },
-    rotation: {
-      x: 0,
-      y: 0.5,
-      z: 0,
-    },
-    scale: 2,
-    visible: false,
-  },
-};
-
 type State = {
   target: THREE.Object3D | null;
   setTarget: (target: THREE.Object3D | null) => void;
   menuOpen: boolean;
   setMenuOpen: (menuOpen: boolean) => void;
   objects: Objects;
+  pointer: { x: number; y: number };
+  setPointer: (pointer: { x: number; y: number }) => void;
   setVisible: (modelName: ModelName, visible: boolean) => void;
   clearAll: () => void;
   setPosition: (
@@ -136,9 +66,11 @@ type State = {
 export const useStore = create<State>((set) => ({
   target: null,
   setTarget: (target) => set({ target }),
-  menuOpen: true,
+  menuOpen: false,
   setMenuOpen: (menuOpen) => set({ menuOpen }),
   objects: initialObjects,
+  pointer: { x: 25, y: 25 },
+  setPointer: (pointer) => set({ pointer }),
   setVisible: (modelName, visible) =>
     set((state) => ({
       objects: {
