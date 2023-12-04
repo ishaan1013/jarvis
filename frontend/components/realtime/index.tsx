@@ -64,9 +64,9 @@ export default function RealTime() {
           ...mapTranslation(data.x * 100, data.y * 100),
           z: 0,
         });
-      }
-      if (gesture === "rotate") {
+      } else if (gesture === "rotate") {
         setRotation("goose", mapRotation(data.x, data.y, data.z));
+      } else if (gesture === "scale") {
       }
     }
 

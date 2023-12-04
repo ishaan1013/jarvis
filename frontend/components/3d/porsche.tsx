@@ -186,6 +186,7 @@ export default function Porsche() {
   const { objects } = useStore();
 
   const offsetY = objects.porsche.offsetY;
+  const offsetScale = objects.porsche.offsetScale;
   const position = objects.porsche.position;
   const rotation = objects.porsche.rotation;
   const scale = objects.porsche.scale;
@@ -206,7 +207,7 @@ export default function Porsche() {
       onClick={(e) => setTarget(ref.current)}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
-      scale={scale}
+      scale={scale + offsetScale}
       position={[position.x, position.y - offsetY, position.z]}
       rotation={[rotation.x, rotation.y, rotation.z]}
       dispose={null}

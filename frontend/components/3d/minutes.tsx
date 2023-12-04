@@ -36,6 +36,7 @@ export default function Minutes() {
   const { objects } = useStore();
 
   const offsetY = objects.minutes.offsetY;
+  const offsetScale = objects.minutes.offsetScale;
   const position = objects.minutes.position;
   const rotation = objects.minutes.rotation;
   const scale = objects.minutes.scale;
@@ -46,7 +47,7 @@ export default function Minutes() {
       onClick={(e) => setTarget(ref.current)}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
-      scale={scale}
+      scale={scale + offsetScale}
       position={[position.x, position.y - offsetY, position.z]}
       rotation={[rotation.x, rotation.y, rotation.z]}
       dispose={null}

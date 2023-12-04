@@ -11,6 +11,7 @@ import { off } from "process";
 type ObjectData = {
   name: string;
   offsetY: number;
+  offsetScale: number;
   position: {
     x: number;
     y: number;
