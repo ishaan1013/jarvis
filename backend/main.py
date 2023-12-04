@@ -9,12 +9,14 @@ import math
 
 
 class GestureCamera:
-    def __init__(self):
-        # def __init__(self, emitPointer, emitMode, emitClick, emitMovement):
-        # self.emitPointer = emitPointer
-        # self.emitMode = emitMode
-        # self.emitClick = emitClick
-        # self.emitMovement = emitMovement
+    # def __init__(self):
+    def __init__(self, app, sio, emitPointer, emitMode, emitClick, emitMovement):
+        self.app = app
+        self.sio = sio
+        self.emitPointer = emitPointer
+        self.emitMode = emitMode
+        self.emitClick = emitClick
+        self.emitMovement = emitMovement
 
         self.BaseOptions = mp.tasks.BaseOptions
         self.GestureRecognizer = mp.tasks.vision.GestureRecognizer
@@ -108,10 +110,12 @@ class GestureCamera:
 
                         d = self.calculate_distance(x0, y0, x5, y5) / 100
 
-                        self.emitPointer(x5, y5)
+                        with self.app.test_request_context():
+                            self.emitPointer(self.sio, x5, d)
+                            # self.emitPointer(self.sio, 0.75, 0.25)
 
-                        print("x:" + str(x5) + ", y:" +
-                              str(y5) + ", z:" + str(d))
+                        # print("x:" + str(x5) + ", y:" +
+                        #       str(y5) + ", z:" + str(d))
 
                         # cv2.putText(frame, "x:" + str(round(x5*frame_width)) + ", y:" + str(round(y5*frame_height)) + ", z:" + str(round(d)), (int(x0 * frame_width), int(y0 * frame_height)),
                         #             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)

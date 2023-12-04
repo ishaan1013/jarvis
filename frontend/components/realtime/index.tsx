@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import Logs from "./logs";
 import { socket } from "@/lib";
-import { HardDriveDownload, RadioTower, TerminalSquare } from "lucide-react";
-import Dnd from "../dnd";
 import { ModelName, useStore } from "@/lib/state";
 
 export const trigger = () => {
@@ -14,15 +12,9 @@ export const trigger = () => {
 export default function RealTime() {
   const [modal, setModal] = useState(false);
   const [messages, setMessages] = useState<string[]>([]);
-  // const [isConnected, setIsConnected] = useState(socket.connected);
   const { isConnected, setIsConnected } = useStore();
 
-  // const [{ x, y }, setCoordinates] = useState<{ x: number; y: number }>({
-  //   x: 0,
-  //   y: 0,
-  // });
-
-  const { objects, setPosition, setRotation, setScale, setPointer } =
+  const { objects, setPosition, setRotation, setScale, pointer, setPointer } =
     useStore();
 
   useEffect(() => {
@@ -50,7 +42,13 @@ export default function RealTime() {
     }
 
     function onPointer(data: { x: number; y: number }) {
-      setPointer({ x: data.x, y: data.y });
+      // const { x, y } = pointer;
+      // setPointer({
+      //   x: x + data.x,
+      //   y: y + data.y,
+      // });
+
+      setPointer(data);
     }
 
     function onTranslate(data: { id: string; x: number; y: number }) {
@@ -76,6 +74,7 @@ export default function RealTime() {
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("log", onLog);
+    socket.on("pointer", onPointer);
     socket.on("translate", onTranslate);
     socket.on("rotate", onRotate);
 
@@ -83,49 +82,15 @@ export default function RealTime() {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("log", onLog);
+      socket.off("pointer", onPointer);
       socket.off("translate", onTranslate);
       socket.off("rotate", onRotate);
     };
-  }, [objects]);
+  }, [objects, pointer]);
 
   const closeModal = () => {
     setModal(false);
   };
 
-  // const trigger = () => {
-  //   socket.emit("trigger", Date.now());
-  // };
   return null;
-
-  // return (
-  //   <>
-  //     <div className="absolute bottom-4 left-4 z-50 flex flex-col items-start">
-  //       {modal ? (
-  //         <Logs
-  //           isConnected={isConnected}
-  //           close={closeModal}
-  //           messages={messages}
-  //         />
-  //       ) : null}
-  //       <div className="mt-4 flex space-x-4">
-  //         <button
-  //           onClick={() => setModal((prev) => !prev)}
-  //           className="z-50 rounded-md border border-neutral-700 bg-neutral-900 p-2 transition-all hover:bg-neutral-800"
-  //         >
-  //           <TerminalSquare className="h-6 w-6 text-neutral-600" />
-  //         </button>
-  //         <button
-  //           onClick={() => trigger()}
-  //           disabled={!isConnected}
-  //           className="z-50 rounded-md border border-neutral-700 bg-neutral-900 p-2 transition-all hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-neutral-900"
-  //         >
-  //           <HardDriveDownload className="h-6 w-6 text-neutral-600" />
-  //         </button>
-  //       </div>
-  //     </div>
-  //     {/* <div className="z-10 h-full w-full">
-  //       <Dnd x={x} y={y} setCoordinates={setCoordinates} />
-  //     </div> */}
-  //   </>
-  // );
 }

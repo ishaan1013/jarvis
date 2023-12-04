@@ -37,23 +37,23 @@ export default function Model() {
 
   const canvas = useRef<HTMLCanvasElement>(null);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      console.log("clicking");
-      if (canvas && canvas.current) {
-        console.log("canvas:" + canvas.current);
-        canvas.current.dispatchEvent(
-          new MouseEvent("click", {
-            clientX: 540,
-            clientY: 440,
-            bubbles: true,
-          }),
-        );
-      }
-    }, 5000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     // console.log("clicking");
+  //     if (canvas && canvas.current) {
+  //       console.log("canvas:" + canvas.current);
+  //       canvas.current.dispatchEvent(
+  //         new MouseEvent("click", {
+  //           clientX: 540,
+  //           clientY: 440,
+  //           bubbles: true,
+  //         }),
+  //       );
+  //     }
+  //   }, 5000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <Canvas

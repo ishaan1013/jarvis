@@ -9,16 +9,14 @@ export default function Cursor() {
 
   return (
     <div
-      className="pointer-events-none absolute z-[999] rounded-full bg-red-600 px-2 py-0.5"
+      className="pointer-events-none absolute z-[999] h-4 w-4 rounded-full border-4 bg-white bg-white/50"
       style={{
-        left: (pointer.x / 100) * width,
-        top: (pointer.y / 100) * height,
+        left: pointer.x * width,
+        top: pointer.y * height,
         transform: "translate(-50%, -50%)",
       }}
     >
-      <div>
-        {(pointer.x / 100) * width}, {(pointer.y / 100) * height}
-      </div>
+      <div></div>
     </div>
   );
 }
