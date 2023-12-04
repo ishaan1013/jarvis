@@ -17,6 +17,7 @@ class GestureCamera:
         self.emitMode = emitMode
         self.emitClick = emitClick
         self.emitMovement = emitMovement
+        self.lastGesture = None
 
         self.BaseOptions = mp.tasks.BaseOptions
         self.GestureRecognizer = mp.tasks.vision.GestureRecognizer
@@ -29,13 +30,6 @@ class GestureCamera:
         thread = threading.Thread(target=self.handRec)
         thread.daemon = True
         thread.start()
-
-        # self.handRec()
-
-    def test(self):
-        while True:
-            print("test")
-            time.sleep(1)
 
     def calculate_distance(self, x1, y1, x2, y2):
         distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
@@ -55,19 +49,30 @@ class GestureCamera:
         dst = dst[y:y+h, x:x+w]
         return dst
 
-    def print_result(self, result, output_image: mp.Image, timestamp_ms: int):
-        print('gesture recognition result: {} at {}'.format(
-            result.gestures[0][0].category_name if len(result.gestures) > 0 else [], timestamp_ms))
+    def result_handler(self, result, output_image: mp.Image, timestamp_ms: int):
+
+        current = result.gestures[0][0].category_name if len(
+            result.gestures) > 0 else None
+
+        if current != self.lastGesture:
+            with self.app.test_request_context():
+                self.emitMode(self.sio, current)
+        # print('gesture recognition result: {} at {}'.format(
+        #     result.gestures[0][0].category_name if len(result.gestures) > 0 else [], timestamp_ms))
 
     def handRec(self):
+
         options = self.GestureRecognizerOptions(
             base_options=self.BaseOptions(
                 model_asset_path='utils/gesture_recognizer.task'),
             running_mode=self.VisionRunningMode.LIVE_STREAM,
-            result_callback=self.print_result)
+            result_callback=self.result_handler)
+
+        # run mediapipe gesture model
         with self.GestureRecognizer.create_from_options(options) as recognizer:
 
             mp_hands = mp.solutions.hands
+            # mp_drawing needed when displaying hand landmarks on cv2.imshow
             mp_drawing = mp.solutions.drawing_utils
 
             hands = mp_hands.Hands(

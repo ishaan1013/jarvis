@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import Logs from "./logs";
 import { socket, mapXY } from "@/lib";
-import { ModelName, useStore } from "@/lib/state";
+import { Gestures, ModelName, useStore } from "@/lib/state";
+import { mapGestures } from "@/lib/3d/mapGestures";
 
 export const trigger = () => {
   socket.emit("trigger", Date.now());
@@ -14,8 +15,16 @@ export default function RealTime() {
   const [messages, setMessages] = useState<string[]>([]);
   const { isConnected, setIsConnected } = useStore();
 
-  const { objects, setPosition, setRotation, setScale, pointer, setPointer } =
-    useStore();
+  const {
+    objects,
+    setPosition,
+    setRotation,
+    setScale,
+    pointer,
+    setPointer,
+    gesture,
+    setGesture,
+  } = useStore();
 
   useEffect(() => {
     socket.connect();
@@ -50,10 +59,16 @@ export default function RealTime() {
 
       setPointer(data);
 
-      setPosition("ironman", {
-        ...mapXY(data.x * 100, data.y * 100),
-        z: 0,
-      });
+      if (gesture === "drag") {
+        setPosition("goose", {
+          ...mapXY(data.x * 100, data.y * 100),
+          z: 0,
+        });
+      }
+    }
+
+    function onMode(data: { mode: string }) {
+      setGesture(data.mode === "none" ? null : mapGestures(data.mode));
     }
 
     function onTranslate(data: { id: string; x: number; y: number }) {
@@ -80,6 +95,7 @@ export default function RealTime() {
     socket.on("disconnect", onDisconnect);
     socket.on("log", onLog);
     socket.on("pointer", onPointer);
+    socket.on("mode", onMode);
     socket.on("translate", onTranslate);
     socket.on("rotate", onRotate);
 
@@ -88,6 +104,7 @@ export default function RealTime() {
       socket.off("disconnect", onDisconnect);
       socket.off("log", onLog);
       socket.off("pointer", onPointer);
+      socket.off("mode", onMode);
       socket.off("translate", onTranslate);
       socket.off("rotate", onRotate);
     };

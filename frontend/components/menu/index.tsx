@@ -78,9 +78,10 @@ export default function Menu() {
         <Zap className="h-5 w-5" />
       </button>
       <div className="absolute left-32 top-4 z-50 flex h-10 items-center text-muted-foreground">
-        {mousePosition.x}, {mousePosition.y}
+        {/* {mousePosition.x}, {mousePosition.y} */}
         {/* 850, 400 */}
         {/* {innerHeight}, {innerWidth} */}
+        {JSON.stringify(gesture)}
       </div>
       <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
         <DialogTrigger>

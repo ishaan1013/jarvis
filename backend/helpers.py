@@ -7,8 +7,9 @@ def emitPointer(sio: SocketIO, x: float, y: float):
     sio.emit('pointer', {"x": x, "y": y})
 
 
-def emitMode(sio: SocketIO, mode: str, start: bool):
-    sio.emit('mode', {"mode": mode, "start": start})
+def emitMode(sio: SocketIO, mode: str | None):
+    sio.emit(
+        'mode', {"mode": mode if mode is not None else "none"})
 
 
 def emitClick(sio: SocketIO):
