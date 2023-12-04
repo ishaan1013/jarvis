@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import initialObjects from "./initialObjects";
+import { off } from "process";
 
 // type Visible = {
 //   porsche: boolean;
@@ -9,6 +10,7 @@ import initialObjects from "./initialObjects";
 
 type ObjectData = {
   name: string;
+  offsetY: number;
   position: {
     x: number;
     y: number;

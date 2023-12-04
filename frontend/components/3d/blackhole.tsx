@@ -62,6 +62,7 @@ export default function BlackHole() {
 
   const { objects } = useStore();
 
+  const offsetY = objects.blackhole.offsetY;
   const position = objects.blackhole.position;
   const rotation = objects.blackhole.rotation;
   const scale = objects.blackhole.scale;
@@ -73,7 +74,7 @@ export default function BlackHole() {
       // onPointerOver={() => setHovered(true)}
       // onPointerOut={() => setHovered(false)}
       scale={scale}
-      position={[position.x, position.y, position.z]}
+      position={[position.x, position.y - offsetY, position.z]}
       rotation={[rotation.x, rotation.y, rotation.z]}
       dispose={null}
     >

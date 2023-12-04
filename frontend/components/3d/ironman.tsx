@@ -29,6 +29,7 @@ export default function IronMan() {
 
   const { objects } = useStore();
 
+  const offsetY = objects.ironman.offsetY;
   const position = objects.ironman.position;
   const rotation = objects.ironman.rotation;
   const scale = objects.ironman.scale;
@@ -50,7 +51,7 @@ export default function IronMan() {
       // onPointerOver={() => setHovered(true)}
       // onPointerOut={() => setHovered(false)}
       scale={scale}
-      position={[position.x, position.y, position.z]}
+      position={[position.x, position.y - offsetY, position.z]}
       rotation={[rotation.x, rotation.y, rotation.z]}
       dispose={null}
     >

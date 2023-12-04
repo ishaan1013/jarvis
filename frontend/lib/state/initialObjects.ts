@@ -1,6 +1,7 @@
 const initialObjects = {
   porsche: {
     name: "porsche",
+    offsetY: 0,
     position: {
       x: 0,
       y: 0,
@@ -16,9 +17,10 @@ const initialObjects = {
   },
   ironman: {
     name: "ironman",
+    offsetY: 0.75,
     position: {
       x: 0,
-      y: -0.75,
+      y: 0,
       z: 0,
     },
     rotation: {
@@ -27,13 +29,14 @@ const initialObjects = {
       z: 0,
     },
     scale: 0.7,
-    visible: true,
+    visible: false,
   },
   blackhole: {
     name: "blackhole",
+    offsetY: 0.2,
     position: {
       x: 0.2,
-      y: -0.2,
+      y: 0,
       z: -0.4,
     },
     rotation: {
@@ -46,9 +49,10 @@ const initialObjects = {
   },
   goose: {
     name: "goose",
+    offsetY: 0.1,
     position: {
       x: 0,
-      y: -0.1,
+      y: 0,
       z: 0,
     },
     rotation: {
@@ -57,13 +61,14 @@ const initialObjects = {
       z: 0,
     },
     scale: 2,
-    visible: false,
+    visible: true,
   },
   minutes: {
     name: "minutes",
+    offsetY: 0.5,
     position: {
       x: 0,
-      y: -0.5,
+      y: 0,
       z: 0,
     },
     rotation: {

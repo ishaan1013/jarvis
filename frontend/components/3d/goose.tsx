@@ -28,6 +28,7 @@ export default function Goose() {
 
   const { objects } = useStore();
 
+  const offsetY = objects.goose.offsetY;
   const position = objects.goose.position;
   const rotation = objects.goose.rotation;
   const scale = objects.goose.scale;
@@ -49,7 +50,7 @@ export default function Goose() {
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
       scale={scale}
-      position={[position.x, position.y, position.z]}
+      position={[position.x, position.y - offsetY, position.z]}
       rotation={[rotation.x, rotation.y, rotation.z]}
       dispose={null}
     >
