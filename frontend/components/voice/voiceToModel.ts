@@ -6,6 +6,8 @@ const models = {
   car: "porsche",
   goose: "goose",
   "black hole": "blackhole",
+  brain: "brain",
+  shapeshifter: "shapeshift",
   "Mis minutes": "minutes",
   "Miss minutes": "minutes",
 };

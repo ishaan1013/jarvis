@@ -25,6 +25,7 @@ export type ModelName =
   | "ironman"
   | "mobius"
   | "blackhole"
+  | "brain"
   | "goose"
   | "minutes";
 
