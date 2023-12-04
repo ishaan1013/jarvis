@@ -62,7 +62,7 @@ export default function Model() {
       // }}
       ref={canvas}
       gl={{ antialias: false }}
-      camera={{ position: [0, 0, 5], fov: 35 }}
+      camera={{ position: [0, 0, 200], fov: 1 }}
       onCreated={(state) => {
         state.gl.toneMapping = THREE.NoToneMapping;
       }}

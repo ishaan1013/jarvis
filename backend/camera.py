@@ -57,7 +57,7 @@ class GestureCamera:
 
     def print_result(self, result, output_image: mp.Image, timestamp_ms: int):
         print('gesture recognition result: {} at {}'.format(
-            result.gestures[0] if len(result.gestures) > 0 else [], timestamp_ms))
+            result.gestures[0][0].category_name if len(result.gestures) > 0 else [], timestamp_ms))
 
     def handRec(self):
         options = self.GestureRecognizerOptions(
@@ -112,7 +112,6 @@ class GestureCamera:
 
                         with self.app.test_request_context():
                             self.emitPointer(self.sio, x5, d)
-                            # self.emitPointer(self.sio, 0.75, 0.25)
 
                         # print("x:" + str(x5) + ", y:" +
                         #       str(y5) + ", z:" + str(d))

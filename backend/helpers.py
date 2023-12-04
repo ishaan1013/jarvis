@@ -3,7 +3,7 @@ from flask_socketio import SocketIO
 
 def emitPointer(sio: SocketIO, x: float, y: float):
     # ('pointer', {"x": x, "y": y})
-    print("EMITTING pointer", {"x": x, "y": y})
+    # print("EMITTING pointer", {"x": x, "y": y})
     sio.emit('pointer', {"x": x, "y": y})
 
 

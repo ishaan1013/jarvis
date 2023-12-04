@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Logs from "./logs";
-import { socket } from "@/lib";
+import { socket, mapXY } from "@/lib";
 import { ModelName, useStore } from "@/lib/state";
 
 export const trigger = () => {
@@ -49,6 +49,11 @@ export default function RealTime() {
       // });
 
       setPointer(data);
+
+      setPosition("ironman", {
+        ...mapXY(data.x * 100, data.y * 100),
+        z: 0,
+      });
     }
 
     function onTranslate(data: { id: string; x: number; y: number }) {
