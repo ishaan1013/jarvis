@@ -66,7 +66,7 @@ const initialObjects = {
   brain: {
     name: "brain",
     offsetY: 0,
-    offsetScale: 0,
+    offsetScale: 1,
     position: {
       x: 0,
       y: 0,

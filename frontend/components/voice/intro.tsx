@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import * as voice from "./jarvis";
+// import * as voice from "./jarvis";
 import { Volume2 } from "lucide-react";
 
 export default function Intro() {
@@ -11,9 +11,9 @@ export default function Intro() {
     <button
       disabled={playing}
       onClick={() => {
-        voice.introduction.play();
-        setPlaying(true);
-        voice.introduction.onended = () => setPlaying(false);
+        // voice.introduction.play();
+        // setPlaying(true);
+        // voice.introduction.onended = () => setPlaying(false);
       }}
       className={`rounded-full border border-muted-foreground px-4 py-1 duration-200 ${
         playing
