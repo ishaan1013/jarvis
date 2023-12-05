@@ -10,41 +10,41 @@ import { useStore } from "@/lib/state";
 
 import voiceToModel from "./voiceToModel";
 
-// import * as voice from "./jarvis";
+import * as voice from "./jarvis";
 
 export default function VoiceControl() {
   const { menuOpen, setMenuOpen, jarvis, setJarvis, setTarget } = useStore();
 
-  // const confirmation = () => {
-  //   const i = Math.floor(Math.random() * 4);
+  const confirmation = () => {
+    const i = Math.floor(Math.random() * 4);
 
-  //   i === 0
-  //     ? voice.sure.play()
-  //     : i === 1
-  //     ? voice.gotit.play()
-  //     : i === 2
-  //     ? voice.onit.play()
-  //     : voice.ofcourse.play();
-  // };
+    i === 0
+      ? voice.sure.play()
+      : i === 1
+      ? voice.gotit.play()
+      : i === 2
+      ? voice.onit.play()
+      : voice.ofcourse.play();
+  };
 
-  // const acknowledgement = () => {
-  //   const i = Math.floor(Math.random() * 4);
+  const acknowledgement = () => {
+    const i = Math.floor(Math.random() * 4);
 
-  //   i === 0
-  //     ? voice.yessir.play()
-  //     : i === 1
-  //     ? voice.atyourservice.play()
-  //     : i === 2
-  //     ? voice.howcanihelp.play()
-  //     : voice.listening.play();
-  // };
+    i === 0
+      ? voice.yessir.play()
+      : i === 1
+      ? voice.atyourservice.play()
+      : i === 2
+      ? voice.howcanihelp.play()
+      : voice.listening.play();
+  };
 
   const commands = [
     {
       command: "(Hey) Jarvis",
       callback: () => {
         setJarvis(true);
-        // acknowledgement();
+        acknowledgement();
       },
     },
     {
@@ -53,7 +53,7 @@ export default function VoiceControl() {
         if (jarvis) {
           setMenuOpen(true);
           setJarvis(false);
-          // confirmation();
+          confirmation();
         }
       },
     },
@@ -63,7 +63,7 @@ export default function VoiceControl() {
         if (jarvis) {
           setMenuOpen(false);
           setJarvis(false);
-          // confirmation();
+          confirmation();
         }
       },
     },
@@ -76,7 +76,7 @@ export default function VoiceControl() {
           console.log(modelName);
           setTarget(modelName);
           setJarvis(false);
-          // confirmation();
+          confirmation();
         }
       },
     },
@@ -86,7 +86,7 @@ export default function VoiceControl() {
         if (jarvis) {
           setTarget(null);
           setJarvis(false);
-          // confirmation();
+          confirmation();
         }
       },
     },

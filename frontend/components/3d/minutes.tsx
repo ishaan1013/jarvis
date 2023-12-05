@@ -3,6 +3,7 @@ import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
 import { useStore } from "@/lib/state";
+import { useFrame } from "@react-three/fiber";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -27,13 +28,21 @@ type ContextType = Record<
 export default function Minutes() {
   const { nodes, materials } = useGLTF("/3d/minutes.glb") as GLTFResult;
 
-  const { objects } = useStore();
+  const { objects, setRotation } = useStore();
 
   const offsetY = objects.minutes.offsetY;
   const offsetScale = objects.minutes.offsetScale;
   const position = objects.minutes.position;
   const rotation = objects.minutes.rotation;
   const scale = objects.minutes.scale;
+
+  useFrame(() => {
+    setRotation("minutes", {
+      x: rotation.x,
+      y: rotation.y + 0.02,
+      z: rotation.z,
+    });
+  });
 
   return (
     <group

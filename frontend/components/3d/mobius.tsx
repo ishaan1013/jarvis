@@ -3,6 +3,7 @@ import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
 import { useStore } from "@/lib/state";
+import { useFrame } from "@react-three/fiber";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -23,13 +24,21 @@ type ContextType = Record<
 export default function Mobius() {
   const { nodes, materials } = useGLTF("/3d/mobius.glb") as GLTFResult;
 
-  const { objects } = useStore();
+  const { objects, setRotation } = useStore();
 
   const offsetY = objects.mobius.offsetY;
   const offsetScale = objects.mobius.offsetScale;
   const position = objects.mobius.position;
   const rotation = objects.mobius.rotation;
   const scale = objects.mobius.scale;
+
+  useFrame(() => {
+    setRotation("mobius", {
+      x: rotation.x + 0.02,
+      y: rotation.y + 0.02,
+      z: rotation.z + 0.02,
+    });
+  });
 
   return (
     <group

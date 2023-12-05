@@ -17,8 +17,8 @@ const initialObjects = {
   },
   ironman: {
     name: "ironman",
-    offsetY: 0.75,
-    offsetScale: -0.3,
+    offsetY: 1,
+    offsetScale: 0,
     position: {
       x: 0,
       y: 0,
@@ -49,7 +49,7 @@ const initialObjects = {
   },
   blackhole: {
     name: "blackhole",
-    offsetY: 0.2,
+    offsetY: 0,
     offsetScale: 0,
     position: {
       x: 0.2,
@@ -65,8 +65,8 @@ const initialObjects = {
   },
   brain: {
     name: "brain",
-    offsetY: 0,
-    offsetScale: 1,
+    offsetY: 0.2,
+    offsetScale: 0.75,
     position: {
       x: 0,
       y: 0,
@@ -97,8 +97,8 @@ const initialObjects = {
   },
   minutes: {
     name: "minutes",
-    offsetY: 0.5,
-    offsetScale: 1.5,
+    offsetY: 1.2,
+    offsetScale: 3,
     position: {
       x: 0,
       y: 0,

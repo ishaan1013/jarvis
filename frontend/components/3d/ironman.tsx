@@ -3,6 +3,7 @@ import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
 import { useStore } from "@/lib/state";
+import { useFrame } from "@react-three/fiber";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -21,13 +22,21 @@ type ContextType = Record<
 export default function IronMan() {
   const { nodes, materials } = useGLTF("/3d/ironman.glb") as GLTFResult;
 
-  const { objects } = useStore();
+  const { objects, setRotation } = useStore();
 
   const offsetY = objects.ironman.offsetY;
   const offsetScale = objects.ironman.offsetScale;
   const position = objects.ironman.position;
   const rotation = objects.ironman.rotation;
   const scale = objects.ironman.scale;
+
+  useFrame(() => {
+    setRotation("ironman", {
+      x: rotation.x,
+      y: rotation.y + 0.02,
+      z: rotation.z,
+    });
+  });
 
   return (
     <group
