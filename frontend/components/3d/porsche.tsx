@@ -175,9 +175,9 @@ type ContextType = Record<
 >;
 
 export default function Porsche() {
-  const { nodes, materials } = useGLTF("/3d/porsche.glb") as GLTFResult;
+  const { objects, url } = useStore();
 
-  const { objects } = useStore();
+  const { nodes, materials } = useGLTF(url ?? "") as GLTFResult;
 
   const offsetY = objects.porsche.offsetY;
   const offsetScale = objects.porsche.offsetScale;
@@ -185,6 +185,7 @@ export default function Porsche() {
   const rotation = objects.porsche.rotation;
   const scale = objects.porsche.scale;
 
+  if (!url) return null;
   return (
     <group
       scale={scale + offsetScale}
@@ -475,5 +476,3 @@ export default function Porsche() {
     </group>
   );
 }
-
-useGLTF.preload("/3d/porsche.glb");

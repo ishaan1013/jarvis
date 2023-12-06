@@ -26,9 +26,8 @@ type ContextType = Record<
 >;
 
 export default function Minutes() {
-  const { nodes, materials } = useGLTF("/3d/minutes.glb") as GLTFResult;
-
-  const { objects, setRotation } = useStore();
+  const { objects, setRotation, url } = useStore();
+  const { nodes, materials } = useGLTF(url ?? "") as GLTFResult;
 
   const offsetY = objects.minutes.offsetY;
   const offsetScale = objects.minutes.offsetScale;
@@ -36,13 +35,15 @@ export default function Minutes() {
   const rotation = objects.minutes.rotation;
   const scale = objects.minutes.scale;
 
-  useFrame(() => {
-    setRotation("minutes", {
-      x: rotation.x,
-      y: rotation.y + 0.02,
-      z: rotation.z,
-    });
-  });
+  // useFrame(() => {
+  //   setRotation("minutes", {
+  //     x: rotation.x,
+  //     y: rotation.y + 0.02,
+  //     z: rotation.z,
+  //   });
+  // });
+
+  if (!url) return null;
 
   return (
     <group
@@ -81,5 +82,3 @@ export default function Minutes() {
     </group>
   );
 }
-
-useGLTF.preload("/3d/minutes.glb");

@@ -18,9 +18,8 @@ type ContextType = Record<
 >;
 
 export default function Goose() {
-  const { nodes, materials } = useGLTF("/3d/goose.glb") as GLTFResult;
-
-  const { objects } = useStore();
+  const { objects, url } = useStore();
+  const { nodes, materials } = useGLTF(url ?? "") as GLTFResult;
 
   const offsetY = objects.goose.offsetY;
   const offsetScale = objects.goose.offsetScale;
@@ -28,6 +27,7 @@ export default function Goose() {
   const rotation = objects.goose.rotation;
   const scale = objects.goose.scale;
 
+  if (!url) return null;
   return (
     <group
       scale={scale + offsetScale}
@@ -46,5 +46,3 @@ export default function Goose() {
     </group>
   );
 }
-
-useGLTF.preload("/3d/goose.glb");

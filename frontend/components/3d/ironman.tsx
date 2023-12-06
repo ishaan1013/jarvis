@@ -3,7 +3,6 @@ import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
 import { useStore } from "@/lib/state";
-import { useFrame } from "@react-three/fiber";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -20,9 +19,8 @@ type ContextType = Record<
 >;
 
 export default function IronMan() {
-  const { nodes, materials } = useGLTF("/3d/ironman.glb") as GLTFResult;
-
-  const { objects, setRotation } = useStore();
+  const { objects, setRotation, url } = useStore();
+  const { nodes, materials } = useGLTF(url ?? "") as GLTFResult;
 
   const offsetY = objects.ironman.offsetY;
   const offsetScale = objects.ironman.offsetScale;
@@ -38,6 +36,7 @@ export default function IronMan() {
   //   });
   // });
 
+  if (!url) return null;
   return (
     <group
       scale={scale + offsetScale}
@@ -61,5 +60,3 @@ export default function IronMan() {
     </group>
   );
 }
-
-useGLTF.preload("/3d/ironman.glb");

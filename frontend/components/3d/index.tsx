@@ -18,13 +18,23 @@ import {
 } from "@react-three/postprocessing";
 // import { LUTCubeLoader, ToneMappingMode } from "postprocessing";
 import { useStore } from "@/lib/state";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { displayModel } from "@/lib";
+import { handleDownload } from "@/lib/r2";
 
 export default function Model() {
   // const texture = useLoader(LUTCubeLoader, "/lut.cube");
 
-  const { objects, target } = useStore();
+  const { objects, target, setUrl, url } = useStore();
+
+  useEffect(() => {
+    const dl = async () => {
+      return await handleDownload(target + ".glb");
+    };
+    if (target) {
+      dl().then((url) => setUrl(url));
+    }
+  }, [target]);
 
   const canvas = useRef<HTMLCanvasElement>(null);
 
@@ -42,7 +52,7 @@ export default function Model() {
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -10, -10]} />
 
-      {displayModel(target)}
+      {url ? displayModel(target) : null}
 
       <OrbitControls
         enableRotate={false}

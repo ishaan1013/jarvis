@@ -32,10 +32,10 @@ type ContextType = Record<
 >;
 
 export default function Brain() {
+  const { objects, url } = useStore();
+
   const group = useRef<THREE.Group>(null);
-  const { nodes, materials, animations } = useGLTF(
-    "/3d/brain.glb",
-  ) as GLTFResult;
+  const { nodes, materials, animations } = useGLTF(url ?? "") as GLTFResult;
   const { actions } = useAnimations(animations, group);
 
   // useEffect(() => {
@@ -46,13 +46,13 @@ export default function Brain() {
   //   };
   // }, []);
 
-  const { objects } = useStore();
-
   const offsetY = objects.brain.offsetY;
   const offsetScale = objects.brain.offsetScale;
   const position = objects.brain.position;
   const rotation = objects.brain.rotation;
   const scale = objects.brain.scale;
+
+  if (!url) return null;
 
   return (
     <group
@@ -115,5 +115,3 @@ export default function Brain() {
     </group>
   );
 }
-
-useGLTF.preload("/3d/brain.glb");

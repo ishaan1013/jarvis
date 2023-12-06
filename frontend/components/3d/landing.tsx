@@ -198,5 +198,3 @@ export default function Model() {
     </Canvas>
   );
 }
-
-useGLTF.preload("/3d/flower-transformed.glb");

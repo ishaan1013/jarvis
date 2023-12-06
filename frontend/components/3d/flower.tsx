@@ -2,8 +2,6 @@ import * as THREE from "three";
 import { MeshTransmissionMaterial, useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
-import { useRef, useState } from "react";
-
 type GLTFResult = GLTF & {
   nodes: {
     petals: THREE.Mesh;
@@ -57,4 +55,3 @@ export default function Flower() {
     </group>
   );
 }
-useGLTF.preload("/3d/flower-transformed.glb");

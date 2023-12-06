@@ -47,9 +47,9 @@ type ContextType = Record<
 
 export default function BlackHole() {
   const group = useRef<THREE.Group>(null);
-  const { nodes, materials, animations } = useGLTF(
-    "/3d/blackhole.glb",
-  ) as GLTFResult;
+  const { objects, url } = useStore();
+
+  const { nodes, materials, animations } = useGLTF(url ?? "") as GLTFResult;
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {
@@ -60,14 +60,13 @@ export default function BlackHole() {
     };
   }, []);
 
-  const { objects } = useStore();
-
   const offsetY = objects.blackhole.offsetY;
   const offsetScale = objects.blackhole.offsetScale;
   const position = objects.blackhole.position;
   const rotation = objects.blackhole.rotation;
   const scale = objects.blackhole.scale;
 
+  if (!url) return null;
   return (
     <group
       ref={group}
@@ -303,5 +302,3 @@ export default function BlackHole() {
     </group>
   );
 }
-
-useGLTF.preload("/3d/blackhole.glb");

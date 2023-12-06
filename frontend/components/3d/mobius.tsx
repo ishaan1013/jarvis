@@ -22,9 +22,8 @@ type ContextType = Record<
 >;
 
 export default function Mobius() {
-  const { nodes, materials } = useGLTF("/3d/mobius.glb") as GLTFResult;
-
-  const { objects, setRotation } = useStore();
+  const { objects, setRotation, url } = useStore();
+  const { nodes, materials } = useGLTF(url ?? "") as GLTFResult;
 
   const offsetY = objects.mobius.offsetY;
   const offsetScale = objects.mobius.offsetScale;
@@ -39,6 +38,8 @@ export default function Mobius() {
   //     z: rotation.z + 0.02,
   //   });
   // });
+
+  if (!url) return null;
 
   return (
     <group
@@ -60,5 +61,3 @@ export default function Mobius() {
     </group>
   );
 }
-
-useGLTF.preload("/3d/mobius.glb");

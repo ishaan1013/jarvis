@@ -38,6 +38,8 @@ export type Gestures = "drag" | "rotate" | "scale" | "point";
 type State = {
   target: ModelName | null;
   setTarget: (target: ModelName | null) => void;
+  url: string | null;
+  setUrl: (url: string | null) => void;
   menuOpen: boolean;
   setMenuOpen: (menuOpen: boolean) => void;
   objects: Objects;
@@ -66,6 +68,8 @@ type State = {
 export const useStore = create<State>((set) => ({
   target: null,
   setTarget: (target) => set({ target }),
+  url: null,
+  setUrl: (url) => set({ url }),
   menuOpen: true,
   setMenuOpen: (menuOpen) => set({ menuOpen }),
   objects: initialObjects,
