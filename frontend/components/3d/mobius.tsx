@@ -32,13 +32,13 @@ export default function Mobius() {
   const rotation = objects.mobius.rotation;
   const scale = objects.mobius.scale;
 
-  useFrame(() => {
-    setRotation("mobius", {
-      x: rotation.x + 0.02,
-      y: rotation.y + 0.02,
-      z: rotation.z + 0.02,
-    });
-  });
+  // useFrame(() => {
+  //   setRotation("mobius", {
+  //     x: rotation.x + 0.02,
+  //     y: rotation.y + 0.02,
+  //     z: rotation.z + 0.02,
+  //   });
+  // });
 
   return (
     <group

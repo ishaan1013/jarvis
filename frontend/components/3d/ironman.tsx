@@ -30,13 +30,13 @@ export default function IronMan() {
   const rotation = objects.ironman.rotation;
   const scale = objects.ironman.scale;
 
-  useFrame(() => {
-    setRotation("ironman", {
-      x: rotation.x,
-      y: rotation.y + 0.02,
-      z: rotation.z,
-    });
-  });
+  // useFrame(() => {
+  //   setRotation("ironman", {
+  //     x: rotation.x,
+  //     y: rotation.y + 0.02,
+  //     z: rotation.z,
+  //   });
+  // });
 
   return (
     <group

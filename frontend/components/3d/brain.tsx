@@ -38,13 +38,13 @@ export default function Brain() {
   ) as GLTFResult;
   const { actions } = useAnimations(animations, group);
 
-  useEffect(() => {
-    actions["Scene"]?.play();
+  // useEffect(() => {
+  //   actions["Scene"]?.play();
 
-    return () => {
-      actions["Scene"]?.stop();
-    };
-  }, []);
+  //   return () => {
+  //     actions["Scene"]?.stop();
+  //   };
+  // }, []);
 
   const { objects } = useStore();
 

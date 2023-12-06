@@ -189,7 +189,7 @@ export default function Model() {
         </group>
       </Environment>
       <EffectComposer disableNormalPass>
-        <Bloom mipmapBlur luminanceThreshold={1} intensity={2} />
+        <Bloom mipmapBlur luminanceThreshold={1} intensity={1} />
         {/* <LUT lut={texture} /> */}
         <BrightnessContrast brightness={0} contrast={0.1} />
         <HueSaturation hue={0} saturation={-0.25} />

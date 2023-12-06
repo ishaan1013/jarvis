@@ -20,5 +20,5 @@ export const mapRotation = (x: number, y: number, z: number) => {
 };
 
 export const mapScale = (z: number) => {
-  return 1.5 - z;
+  return 100.5 - 100 * Math.pow(z, 0.1);
 };
