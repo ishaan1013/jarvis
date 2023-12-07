@@ -31,10 +31,13 @@ flask run
 ```bash
 npm install
 ```
-Note: viewing and manipulating 3D models can be resource-intensive.
 
 Then, run the application in the command line and it will be available at `http://localhost:3000`.
 
 ```bash
 npm run dev
 ```
+
+#### Notes
+- Viewing and manipulating 3D models can be resource-intensive.
+- Voice control uses the WebSpeechAPI which currently works best on Chrome, Microsoft Edge, or Safari 14.1
