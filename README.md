@@ -5,6 +5,7 @@ An interactive, gesture-controlled 3D hologram. Built with [OpenCV](https://open
 
 <img width="1652" alt="image" src="https://github.com/ishaan1013/jarvis/assets/69771365/addb94c8-8b2a-4a1d-bfe5-0481bbab9973">
 
+Click to view our [Video Demonstration](https://www.youtube.com/watch?v=qOElePxRUAs)
 
 ## Running Locally
 
